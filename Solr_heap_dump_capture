@@ -1,0 +1,78 @@
+1) Heapdump:
+
+How to get a heapdump?
+
+To gather heapdump when "OutOfMemoryError" occurs you should set the following jvm parameters and restart your process/service:
+
+"-XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/path/to/create/heapdump"
+
+o Heapdump on out of memory of infra-solr (check if this is configured already):
+--------------------------------------------------------------------------------
+
+Ambari UI->ambari Infra->Configs->Advanced->Advanced infra-solr-env->infra-solr-env template
+
+SOLR_OPTS="$SOLR_OPTS -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/path/to/create/heapdump"
+
+Save the configs.
+
+*** Note: Make sure path has enough disk space. Heapdumps can be as big as heap size.
+
+o To manually take a heapdump you should run the jmap utility like this:
+------------------------------------------------------------------------
+
+# jmap -dump:format=b,file=/path/to/store/heapdump.hprof $pid$
+
+o How to validate the generated heapdump?
+-----------------------------------------
+
+You can download and use the following utility to validate the generated heap dump on the attachments:
+
+o Download "checkHeapDump.pl":
+------------------------------
+
+- Place in the host where the heapdump was taken.
+- Set correct permissions and run:
+
+# chmod 755 checkHeapDump.pl && ./checkHeapDump.pl /path/of/the/heap.hprof 
+
+- If the checkdump.pl says its OK, please compress the dump with gzip and upload to case or exavault (instructions below).
+
+# gzip java_pidXXXheap.hprof
+
+- We need to activate the "debug" on infra-solr for the Solr queries that are being executed. To check the exact query that makes infra solr to crash. (SME is requesting this information. It may be possible infra-solr actual max heap size is not enough to execute the query.)
+
+2) Solr query debug in Infra solr:
+----------------------------------
+Ambari UI->ambari Infra->Configs->Advanced->Advanced infra-solr-log4j->infra-solr-log4j template add at the end:
+
+log4j.logger.org.apache.solr.core.SolrCore.Request=DEBUG
+
+Save the configs.
+
+3) Stop ranger admin and Infra solr.
+
+4) Create a folder and move old logs of ranger admin and ambari infra solr. For example on infra solr nodes:
+
+# cd /var/log/ambari-infra-solr
+# mkdir oldlogs
+# mv * ./oldlogs
+
+5) Start ranger admin and infra solr.
+
+6) Wait until everything is up and running and all infra solr collections are active. Use cluster as usual, wait until Infra solr crashes and capture infra solr logs and heapdump and ranger admin logs and upload them to the case or exavault.
+
+7) Create a tar gz of the solr log folder of the infra solr nodes that crashed of oom like:
+
+# tar cvfz /tmp/infrasolrlogs.tar.gz /var/log/ambari-infra-solr
+
+and upload the file to EXAVAULT:
+
+------
+URL: https://swft.exavault.com
+login as: dropoff
+password: Dr0p0ff!
+sftp dropoff@hortonworks.exavault.com
+password: Dr0p0ff! 
+-------
+
+8) We can revert all the changes after we have the heapdump and queries that may crash infra solr.
