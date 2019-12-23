@@ -1,8 +1,7 @@
 With help from Alejandro Arrieta.
 
-1) Heapdump:
-
-How to get a heapdump?
+o How to get a heapdump?
+------------------------
 
 To gather heapdump when "OutOfMemoryError" occurs you should set the following jvm parameters and restart your process/service:
 
