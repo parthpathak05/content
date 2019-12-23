@@ -33,10 +33,10 @@ Optional Values which are necessary when creating a collection manually using AP
 &replicationFactor=<number>
 
 
-3) DELETE A COLLECTION & CONFIG:
---------------------------------
+3) DELETE A COLLECTION & CONFIG set:
+------------------------------------
 
-$ curl -ikv --negotiate -u : "http://$(hostname -f):8886/solr/admin/collectionss?acti`on=DELETE&name=ranger_audits" 
+$ curl -ikv --negotiate -u : "http://$(hostname -f):8886/solr/admin/collectionss?action=DELETE&name=ranger_audits" 
 
 $ curl -ikv --negotiate -u : "http://$(hostname -f):8886/solr/admin/configs?action=DELETE&name=ranger_audits" 
 
@@ -50,12 +50,14 @@ The below will beautify the Json format:
 
 $ curl --negotiate -u : "http://$(hostname -f):8886/solr/admin/collections?action=clusterstatus&wt=json&indent=true" | python -m json.tool 
 
+
 5) To issue a manual commit to SOLR:
 -------------------------------------
 
 $ curl -ikv --negotiate -u: "http://$(hostname -f):8983/solr/<collection_name>/update?commit=true"
 
--> This is going to do a hard commit and create a segment with all the documents in it on the local disk. 
+-> This is going to do a hard commit and create a new segment with all the documents in it on the local disk. 
+
 
 6) To query a collection from command line:
 -------------------------------------------
@@ -63,7 +65,6 @@ $ curl -ikv --negotiate -u: "http://$(hostname -f):8983/solr/<collection_name>/u
 $ curl -ikv --negotiate -u: "http://$(hostname -f):8886/solr/ranger_audits_shard1_replica1/select?q=*%3A*&wt=json&indent=true"
 
 o Filter query example:
------------------------
 
 $ curl -ikv --negotiate -u http://$(hostname -f):8886/solr/<collection/shard name>/select?q=*:*&fq=repo:Apollo_kms&fq=result:0&wt=json&indent=true
 
@@ -79,12 +80,14 @@ $ curl -ikv --negotiate -u : "http://$(hostname -f):8886/solr/admin/collections?
 
 $ curl -ikv --negotiate -u : "http://$(hostname -f):8886/solr/admin/collections?action=RESTORE&name=<myBackupName>&location=</path/to/my/shared/drive>&collection=<myRestoredCollectionName>
 
+
 9) To delete the old entires from the collections log:
 ------------------------------------------------------
 
 $ curl -ikv --negotiate -u: "http://$(hostname -f):8886/solr/ranger_audits/update?commit=true" -H "Content-Type: text/xml" --data-binary "<delete><query>evtTime:[* TO NOW-15DAYS]</query></delete>"
 
 -> This is going to delete data before 15 days from the current date.
+
 
 10) To add replica for the collections:
 ---------------------------------------
@@ -98,32 +101,23 @@ $ curl -ikv --negotiate -u : "http://$(hostname -f):8886/solr/admin/collections?
 ***NOTE: More details can be found at:
 https://lucene.apache.org/solr/guide/6_6/collections-api.html
 
+
 11) Split Shard on ranger_audits collection:
 --------------------------------------------
 
 $ curl "http://$(hostname -f):8886/solr/admin/collections?action=SPLITSHARD&collection=ranger_audits&shard=shard1&indent=true"
 
-
 o For Kerberos:
 
 curl -ikv --negotiate -u: "http://$(hostname -f):8886/solr/admin/collections?action=SPLITSHARD&collection=ranger_audits&shard=shard1&indent=true"
 
-Can use an "async" call to put the thread in the BG.
-
-
-curl -ikv --negotiate -u: "http://localhost:8886/solr/<collection_name>/config -d '{"set-user-property": {"update.autoCreateFields":"false"}}'"
-
-
-export OLD_COLLECTION=old_vertex_index
-export ACTIVE_COLLECTION=vertex_index
-export EXCLUDE_FIELDS=_version_
-export INFRA_SOLR_KEYTAB=/etc/security/keytabs/ambari-infra-solr.service.keytab
-export INFRA_SOLR_PRINCIPAL=
-infra-solr-data-manager -m archive -v -c $OLD_COLLECTION -s $SOLR_URL -z none -r 10000 -w 100000 --skip-date-usage --solr-output-collection $ACTIVE_COLLECTION -k $INFRA_SOLR_KEYTAB -n $INFRA_SOLR_PRINCIPAL --exclude-fields $EXCLUDE_FIELDS
+*** Can use an "async" call to put the thread in the BG.
 
 
 o Backup the OLD configs for Ambari Infra Solr for ranger_audits collection:
 ----------------------------------------------------------------------------
+
+-> This can be done 
 
 #/usr/lib/ambari-infra-solr/server/scripts/cloud-scripts/zkcli.sh -zkhost c165-node2.local.domain:2181/infra-solr -cmd downconfig -confname ranger_audits -confdir /tmp/OLDRANGER/ 
 
@@ -131,11 +125,28 @@ o Backup the OLD configs for Ambari Infra Solr for ranger_audits collection:
 o Solr check index tool:
 ------------------------
 
-/usr/jdk64/jdk1.8.0_92/bin/java -cp /opt/lucidworks-hdpsearch/solr/server/solr-webapp/webapp/WEB-INF/lib/lucene-core-5.2.1.jar -ea:org.apache.lucene... org.apache.lucene.index.CheckIndex /opt/lucidworks-hdpsearch/solr/server/solr/DOCSS_UAT2_shard2_replica1/data/ -verbose
+- This is helpful when you have to perform a index check for any corruption.
 
-/usr/jdk64/jdk1.8.0_92/bin/java -cp /opt/lucidworks-hdpsearch/solr/server/solr-webapp/webapp/WEB-INF/lib/lucene-core-5.2.1.jar -ea:org.apache.lucene... org.apache.lucene.index.CheckIndex /opt/lucidworks-hdpsearch/solr/server/solr/DOCSS_UAT2_shard2_replica1/data/ -exorcise
+$ $JAVA_HOME -cp /opt/lucidworks-hdpsearch/solr/server/solr-webapp/webapp/WEB-INF/lib/lucene-core-5.2.1.jar -ea:org.apache.lucene... org.apache.lucene.index.CheckIndex /path/to/the/index/directory/data/ -verbose
 
-o Replacing the managed-schmea for "ranger_audits":
+-> This will give Verbose you information on the corruption of the index.
+
+For example: 
+
+$ /usr/jdk64/jdk1.8.0_92/bin/java -cp /opt/lucidworks-hdpsearch/solr/server/solr-webapp/webapp/WEB-INF/lib/lucene-core-5.2.1.jar -ea:org.apache.lucene... org.apache.lucene.index.CheckIndex /opt/lucidworks-hdpsearch/solr/server/solr/DOCSS_UAT2_shard2_replica1/data/ -verbose 2> &1 | tee check_index_verbose_out.txt 
+
+-> The below is going to help you remove the corrupt indexes.
+
+$ $JAVA_HOME -cp /opt/lucidworks-hdpsearch/solr/server/solr-webapp/webapp/WEB-INF/lib/lucene-core-5.2.1.jar -ea:org.apache.lucene... org.apache.lucene.index.CheckIndex /path/to/the/index/directory/data/ -exorcise 2 > &1 | tee exorcise_out.txt
+
+-> This will remove the corrupted index file. Please make sure that the "exorcise" command is run with "infra-solr" (service) user (there might be some data loss as the corrupt segments are purged). The command is going to delete a corrupt index file and create a new one merging the un-merged indexes.
+
+For example: 
+
+$ /usr/jdk64/jdk1.8.0_92/bin/java -cp /opt/lucidworks-hdpsearch/solr/server/solr-webapp/webapp/WEB-INF/lib/lucene-core-5.2.1.jar -ea:org.apache.lucene... org.apache.lucene.index.CheckIndex /opt/lucidworks-hdpsearch/solr/server/solr/DOCSS_UAT2_shard2_replica1/data/ -exorcise
+
+
+o Replacing the "managed-schmea" for "ranger_audits":
 ---------------------------------------------------
 
 	#ssh into Ambari Infra Solr host
@@ -155,7 +166,7 @@ o Replacing the managed-schmea for "ranger_audits":
   	$ /usr/lib/ambari-infra-solr/server/scripts/cloud-scripts/zkcli.sh --zkhost "${ZK_HOST}" -cmd getfile /infra-solr/configs/ranger_audits/managed-schema /tmp/managed-schema.xml.orig
   
 # Upload configuration back to Zookeeper
-	$ /usr/lib/ambari-infra-solr/server/scripts/cloud-scripts/zkcli.sh --zkhost "${ZK_HOST}" -cmd putfile /configs/ranger_audits/managed-schema managed-schema
+	$ /usr/lib/ambari-infra-solr/server/scripts/cloud-scripts/zkcli.sh --zkhost "${ZK_HOST}" -cmd putfile /infra-solr/configs/ranger_audits/managed-schema managed-schema
 	$ /usr/hdp/current/zookeeper-client/bin/zkCli.sh -server <zookeeper-node>:2181 set /infra-solr/configs/audit_logs/managed-schema "`cat /usr/lib/ambari-logsearch-portal/conf/solr_configsets/audit_logs/conf/managed-schema`"
 
 # Delete and recreate the ranger_audits collection
@@ -174,8 +185,9 @@ https://docs.hortonworks.com/HDPDocuments/Ambari-2.7.3.0/using-ambari-core-servi
 https://docs.hortonworks.com/HDPDocuments/HDF3/HDF-3.4.0/ambari-managed-hdf-upgrade-ppc/content/hdf-upgrade-ambari-infra.html
 
 
-o Updating the security.json in Kerberized clusters:
-----------------------------------------------------
+o Updating the security.json in Kerberized clusters for Apache Solr:
+--------------------------------------------------------------------
+
 $ /opt/lucidworks-hdpsearch/solr/server/scripts/cloud-scripts/zkcli.sh -zkhost c3218-node2.hwx.internal2:2181,c3218-node3.hwx.internal2:2181,c3218-node4.hwx.internal2:2181 -cmd put /solr/security.json '{"authentication":{"class": "org.apache.solr.security.KerberosPlugin"}}'  
 
 
@@ -186,21 +198,14 @@ https://support.hortonworks.com/s/article/How-to-setup-and-secure-a-SolrCloud-cl
 
 https://community.cloudera.com/t5/Community-Articles/Modifying-Ranger-Audit-Solr-Config/ta-p/244899
 
+
 o Documentation for Solr Admin UI:
 ----------------------------------
 
 https://lucene.apache.org/solr/guide/6_6/using-the-solr-administration-user-interface.html
 
+
 o Oliver Szabo's github link with Asciinemas:
 ---------------------------------------------
 
 https://github.com/apache/ambari-infra/tree/master/ambari-infra-solr-client
-
-
-Q. Can we store index in local file system as well as in HDFS? Simultaneaously.
-
-Solr supports both indices on local file system and HDFS. It just depends on the directory factory being used for the collection. A single collection cannot span different file systems. What should be possible (haven't tested) is to have say two collections (one local filesystem, one hdfs filesystem) and then use Solr collection aliases to search both collections at once.
-
-Q. Also can we set a custom job periodically to upload index from local file system to HDFS?
-
-There is nothing different between an index on HDFS and a local index. Moving an index between the two can be done carefully making sure that the correct index ends up in the right location. If the index is moved improperly (ie: shards don't line up) then you will get bad results.
