@@ -99,7 +99,7 @@ Example:
 $ curl -ikv --negotiate -u : "http://$(hostname -f):8886/solr/admin/collections?action=ADDREPLICA&collection=vertex_index&shard=shard1&node=c2218-node2.labs.suqadron.hortonworks.com:8886_solr"
 
 ***NOTE: More details can be found at:
-https://lucene.apache.org/solr/guide/6_6/collections-api.html
+[Lucene Documentation](https://lucene.apache.org/solr/guide/6_6/collections-api.html)
 
 
 11) Split Shard on ranger_audits collection:
@@ -117,7 +117,7 @@ curl -ikv --negotiate -u: "http://$(hostname -f):8886/solr/admin/collections?act
 o Backup the OLD configs for Ambari Infra Solr for ranger_audits collection:
 ----------------------------------------------------------------------------
 
--> This can be done 
+-> This can be done for any config set that is available in ZK. The config sets are present under `/infra-solr/configs`.
 
 #/usr/lib/ambari-infra-solr/server/scripts/cloud-scripts/zkcli.sh -zkhost c165-node2.local.domain:2181/infra-solr -cmd downconfig -confname ranger_audits -confdir /tmp/OLDRANGER/ 
 
@@ -175,14 +175,12 @@ o Replacing the "managed-schmea" for "ranger_audits":
 	$curl -i "http://$(hostname -f):8886/solr/admin/collections?action=DELETE&name=ranger_audits"
 	$curl -i "http://$(hostname -f):8886/solr/admin/collections?action=CREATE&name=ranger_audits&numShards=5&maxShardsPerNode=10"
 
-## SOLR_OPTS="$SOLR_OPTS -Dsolr.kerberos.name.rules=RULE:[1:\$1@\$0](.*@HM.DM.AD)s/@.*///LRULE:[2:$1@$0](solr@HM.DM.AD)s/.*/solr/DEFAULT"
-
 
 o Helpful articles:
 -------------------
-Understanding Ambari Infra
-https://docs.hortonworks.com/HDPDocuments/Ambari-2.7.3.0/using-ambari-core-services/content/amb_understanding_ambari_infra.html
-https://docs.hortonworks.com/HDPDocuments/HDF3/HDF-3.4.0/ambari-managed-hdf-upgrade-ppc/content/hdf-upgrade-ambari-infra.html
+[Understanding Ambari Infra]
+(https://docs.hortonworks.com/HDPDocuments/Ambari-2.7.3.0/using-ambari-core-services/content/amb_understanding_ambari_infra.html)
+[Ambari HDF Upgrade](https://docs.hortonworks.com/HDPDocuments/HDF3/HDF-3.4.0/ambari-managed-hdf-upgrade-ppc/content/hdf-upgrade-ambari-infra.html)
 
 
 o Updating the security.json in Kerberized clusters for Apache Solr:
