@@ -1,7 +1,10 @@
 With help from Kevin Risden who is the original author of the article:
+----------------------------------------------------------------------
 
+~~~
 Apache Ambari Infra Solr and Apache Ranger - Fixing OOM
 https://risdenk.github.io/2017/12/18/ambari-infra-solr-ranger.html
+~~~
 
 o Replacing the "managed-schmea" for "ranger_audits":
 ---------------------------------------------------
