@@ -1,0 +1,32 @@
+Got from Avalon prepared by Raghav: 
+===================================
+
+Use case:
+
+-> To be able to deal with Ranger Usersync, you need to have a little idea of LDAP and it's basic commands to fetch the details.
+-> Below is defined the generic commands which will help you get done (at least) with the first response to a Ranger Usersync case.
+
+
+1. Collect Ranger Usersync configs:
+-----------------------------------
+
+#tar -cvf /var/tmp/usersync.logs.tar /var/log/ranger/usersync/usersync.log
+#tar -cvf /var/tmp/usersync.conf.tar /etc/ranger/usersync/conf/*
+
+2. LDAPsearch commands:
+-----------------------
+
+2a. To get a beautified view of the properties in ranger-ugsync-site.xml
+-------------------------------------------------------------------------
+
+# egrep -A1 ranger.usersync.[ldap\|group] /etc/ranger/usersync/conf/ranger-ugsync-site.xml | tr -d " " | sed -nr 's/^<(.*)>(.*)<.*>$/\2/p' |awk '{ORS=(NR%2?FS:RS)}1' | tr ' ' '='
+
+2b. To check if the configs are returning the values from the LDAP according to the defined configs:
+----------------------------------------------------------------------------------------------------
+
+$ ldapsearch -H <LDAP_HOST>:<PORT> -b <Search_Base_in_configs> -D <Bind_user_in_configs> -W “<Search_filter_in_configs>” $ranger.usersync.ldap.user.nameattribute  > /var/tmp/ldap.users.out
+
+2c. To check a missing entry:
+-----------------------------
+
+#ldapsearch -H $ranger.usersync.ldap.url -b $ranger.usersync.ldap.user.searchbase -D $ranger.usersync.ldap.binddn -W “$ranger.usersync.ldap.user.nameattribute=<MissingUserName>” 
