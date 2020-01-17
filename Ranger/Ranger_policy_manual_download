@@ -1,0 +1,8 @@
+With help from COEs across the floor:
+
+1. Downloading the policies manually:
+-------------------------------------
+
+-> kinit before running the below command:
+
+$ curl -iv -k --negotiate -u : -H "Content-type:application/json" -X GET http://<HOST>:<PORT>/service/plugins/policies/download/<repository_name>
