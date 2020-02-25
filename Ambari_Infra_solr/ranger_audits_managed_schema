@@ -1,3 +1,10 @@
+NOTE: There is a known issue with Java 1.8 update 242. The detailed information can be found here:
+
+~~~
+HDP Services not starting with JDK 8u242 (Keberized cluster)
+https://jira.cloudera.com/browse/TSB-394
+~~~
+
 With help from Kevin Risden who is the original author of the article:
 ----------------------------------------------------------------------
 
