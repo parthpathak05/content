@@ -1,0 +1,40 @@
+1. Stop the Solr node
+
+2. Backup the index directory if data is of paramount importance
+
+3. Goto <Path_to_SolrInstall-X.Y.Z>/server/solr-webapp/webapp/WEB-INF/lib
+
+You should see lucene-core-X.Y.Z.jar here:
+
+ 
+
+Run the following command:
+
+Syntax:
+
+java -cp lucene-core-6.3.0.jar -ea:org.apache.lucene... org.apache.lucene.index.CheckIndex <path_to_index_folder> -exorcise
+ 
+Example:
+java -cp lucene-core-6.3.0.jar -ea:org.apache.lucene... org.apache.lucene.index.CheckIndex /Users/Rohit/Documents/SolrInstall/solr-6.3.0/example/cloud/node1/solr/gettingstarted_shard1_replica1/data/index -exorcise
+ 
+
+This command will remove the corrupt segments from the index (so there might be some data loss as the corrupt segments are purged)
+
+ 
+
+You will see an output similar to below:
+
+-----------------------------------------------------
+
+ 
+
+Opening index @ /Users/Rohit/Documents/SolrInstall/solr-6.3.0/example/cloud/node1/solr/gettingstarted_shard1_replica1/data/index
+
+ 
+
+Segments file=segments_1 numSegments=0 id=1gbklfuh4fgecaa913367pgxy
+
+No problems were detected with this index.
+
+
+Took 0.077 sec total.
