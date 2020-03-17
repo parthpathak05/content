@@ -37,10 +37,12 @@ o default.xml
 				<name>main.ldapRealm</name>
 				<value>org.apache.hadoop.gateway.shirorealm.KnoxLdapRealm</value>
 			</param>
+			<!-- Section not needed -->
 			<param>
 				<name>main.ldapRealm.userDnTemplate</name>
 				<value>uid={0},ou=people,dc=hadoop,dc=apache,dc=org</value>
 			</param>
+			<!-- Section not needed -->
 			<param>
 				<name>main.ldapRealm.contextFactory.url</name>
 				<value>ldap://172.26.126.78:389</value>
@@ -83,8 +85,8 @@ o default.xml
 			<param>
 				<name>main.ldapRealm.groupIdAttribute</name>
 				<value>cn</value>
+				<!-- END: changes needed for group sync-->
 			</param>
-			<!-- END: changes needed for group sync-->
 			<param>
 				<name>main.ldapRealm.contextFactory.authenticationMechanism</name>
 				<value>simple</value>
@@ -104,14 +106,6 @@ o default.xml
 			<name>AclsAuthz</name>
 			<enabled>true</enabled>
 		</provider>
-		
-	<!-- When Ranger plugin for Knox is enabled use:
-		<provider>
-			<role>authorization</role>
-			<name>XASecurePDPKnox</name>
-			<enabled>true</enabled>
-		</provider> -->
-
 		<provider>
 			<role>ha</role>
 			<name>HaProvider</name>
@@ -170,11 +164,11 @@ o default.xml
 	</service>
 	<service>
 		<role>OOZIE</role>
-		<url>http://c1218-node2.coelab.cloudera.com:11000/oozie/</url>
+		<url>http://c1218-node2.coelab.cloudera.com:11000/oozie</url>
 	</service>
 	<service>
 		<role>OOZIEUI</role>
-		<url>http://c1218-node2.coelab.cloudera.com:11000/oozie/</url>
+		<url>http://c1218-node2.coelab.cloudera.com:11000/oozie</url>
 	</service>
 	<service>
 		<role>HIVE</role>
