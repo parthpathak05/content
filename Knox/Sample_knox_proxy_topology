@@ -8,6 +8,11 @@ Apache Knox Gateway 0.8.x User’s Guide
 http://knox.apache.org/books/knox-0-8-0/user-guide.html#Apache+Knox+Gateway+0.8.x+User's+Guide
 ~~~
 
+~~~
+Contents (HDP 2.6.5.0 using Active Directory)
+https://github.com/HortonworksUniversity/Security_Labs/blob/master/HDP-2.6-AD.md#contents--hdp-2650-using-active-directory
+~~~
+
 NOTE: 
 
 1. If Ranger plugin for KNOX is enabled, make sure that it is present in the list of users in the Policy for Knox. Otherwise it will throw HTTP 403 autorization error in the browser.
