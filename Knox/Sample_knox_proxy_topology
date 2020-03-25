@@ -50,7 +50,7 @@ o default.xml
 			<!-- Section not needed -->
 			<param>
 				<name>main.ldapRealm.contextFactory.url</name>
-				<value>ldap://172.26.126.78:389</value>
+				<value>ldap://<host>:389</value>
 			</param>
 			<param>
 				<name>main.ldapRealm.contextFactory.systemUsername</name>
@@ -122,8 +122,7 @@ o default.xml
 			</param>
 			<param>
 				<name>HIVE</name>
-				<value>maxFailoverAttempts=3;failoverSleep=1000;enabled=true;zookeeperEnsemble=c1218-node2.coelab.cloudera.com:2181,c1218-node3.coelab.cloudera.com:2181,c1218-node4.coelab.cloudera.com:2181;
-       zookeeperNamespace=hiveserver2</value>
+				<value>maxFailoverAttempts=3;failoverSleep=1000;enabled=true;zookeeperEnsemble=nodeXX.coelab.cloudera.com:2181,nodeXX.coelab.cloudera.com:2181,nodeXX.coelab.cloudera.com:2181;zookeeperNamespace=hiveserver2</value>
 			</param>
 			<param>
 				<name>OOZIE</name>
@@ -145,35 +144,35 @@ o default.xml
 	</gateway>
 	<service>
 		<role>NAMENODE</role>
-		<url>hdfs://c1218-node2.coelab.cloudera.com:8020</url>
-		<url>hdfs://c1218-node3.coelab.cloudera.com:8020</url>
+		<url>hdfs://nodeXX.coelab.cloudera.com:8020</url>
+		<url>hdfs://nodeXX.coelab.cloudera.com:8020</url>
 	</service>
 	<service>
 		<role>JOBTRACKER</role>
-		<url>rpc://c1218-node2.coelab.cloudera.com:8050</url>
+		<url>rpc://nodeXX.coelab.cloudera.com:8050</url>
 	</service>
 	<service>
 		<role>WEBHDFS</role>
-		<url>http://c1218-node2.coelab.cloudera.com:50070/webhdfs</url>
-		<url>http://c1218-node3.coelab.cloudera.com:50070/webhdfs</url>
+		<url>http://nodeXX.coelab.cloudera.com:50070/webhdfs</url>
+		<url>http://nodeXX.coelab.cloudera.com:50070/webhdfs</url>
 	</service>
 	<service>
 		<role>HDFSUI</role>
-		<url>http://c1218-node2.coelab.cloudera.com:50070</url>
-		<url>http://c1218-node3.coelab.cloudera.com:50070</url>
+		<url>http://nodeXX.coelab.cloudera.com:50070</url>
+		<url>http://nodeXX.coelab.cloudera.com:50070</url>
 	</service>
 	<service>
 		<role>YARNUI</role>
-		<url>http://c1218-node2.coelab.cloudera.com:8088/ui2</url>
-		<url>http://c1218-node3.coelab.cloudera.com:8088/ui2</url>
+		<url>http://nodeXX.coelab.cloudera.com:8088/ui2</url>
+		<url>http://nodeXX.coelab.cloudera.com:8088/ui2</url>
 	</service>
 	<service>
 		<role>OOZIE</role>
-		<url>http://c1218-node2.coelab.cloudera.com:11000/oozie</url>
+		<url>http://nodeXX.coelab.cloudera.com:11000/oozie</url>
 	</service>
 	<service>
 		<role>OOZIEUI</role>
-		<url>http://c1218-node2.coelab.cloudera.com:11000/oozie</url>
+		<url>http://nodeXX.coelab.cloudera.com:11000/oozie</url>
 	</service>
 	<service>
 		<role>HIVE</role>
