@@ -1,0 +1,17 @@
+<param name="main.ldapRealm" value="org.apache.hadoop.gateway.shirorealm.KnoxLdapRealm"/>
+<param name="main.ldapContextFactory" value="org.apache.hadoop.gateway.shirorealm.KnoxLdapContextFactory"/>
+<param name="main.ldapRealm.contextFactory" value="$ldapContextFactory"/>
+<param name="main.ldapRealm.contextFactory.url" value="ldap://ad-21115.lab.hortonworks.net:389"/>
+<param name="main.ldapRealm.contextFactory.systemUsername" value="cn=ldap-reader2,ou=ServiceUsers,dc=lab,dc=hortonworks,dc=net"/>
+<param name="main.ldapRealm.contextFactory.systemPassword" value="BadPass#1"/>
+<param name="main.ldapRealm.searchBase" value="ou=CorpUsers,dc=lab,dc=hortonworks,dc=net"/>
+<param name="main.ldapRealm.userSearchAttributeName" value="CN"/>
+<param name="main.ldapRealm.userObjectClass" value="person"/>
+<param name="main.ldapRealm.authorizationEnabled" value="true"/>
+<param name="main.ldapRealm.groupSearchBase" value="ou=CorpUsers,dc=lab,dc=hortonworks,dc=net"/>
+<param name="main.ldapRealm.groupObjectClass" value="group"/>
+<param name="main.ldapRealm.groupIdAttribute" value="cn"/>
+<param name="main.ldapRealm.memberAttribute" value="member"/>
+<param name="urls./**" value="authcBasic"/>undefined</provider>undefined<param>
+<name>knoxsso.redirect.whitelist.regex</name>
+<value>^https?:\/\/(c2218-node1\.hwx\.internal2|localhost|127\.0\.0\.1|0:0:0:0:0:0:0:1|::1):[0-9].*$</value>undefined</param>
