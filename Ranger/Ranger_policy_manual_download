@@ -8,3 +8,7 @@ With help from COEs across the floor:
 $ curl -iv -k --negotiate -u : -H "Content-type:application/json" -X GET http://<HOST>:<PORT>/service/plugins/policies/download/<repository_name>
 
 $ curl "https://<ranger_hots>:6182/service/plugins/secure/policies/download/<reponame>" -k
+
+
+
+https://docs.cloudera.com/HDPDocuments/HDP3/HDP-3.1.0/ranger-apis/content/get_policy_by_service_name_and_policy_name.html
