@@ -1,7 +1,7 @@
 Details:
 --------
 
-Default output behavior:
+> Default output behavior:
 
 > By default, Solr outputs its log to console by stderr, so a way to redirect Solr's log is by running it with the command: java -jar start.jar 2> output.log. This way you won't have any log rolling. This is only an easy way to start working while developing, but it's not recommended for production environments.
 
