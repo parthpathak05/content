@@ -36,7 +36,7 @@ Optional Values which are necessary when creating a collection manually using AP
 3) DELETE A COLLECTION & CONFIG set:
 ------------------------------------
 
-$ curl -ikv --negotiate -u : "http://$(hostname -f):8886/solr/admin/collectionss?action=DELETE&name=ranger_audits" 
+$ curl -ikv --negotiate -u : "http://$(hostname -f):8886/solr/admin/collections?action=DELETE&name=ranger_audits" 
 
 $ curl -ikv --negotiate -u : "http://$(hostname -f):8886/solr/admin/configs?action=DELETE&name=ranger_audits" 
 
