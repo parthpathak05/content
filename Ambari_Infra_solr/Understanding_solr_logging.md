@@ -1,26 +1,26 @@
-Details:
+* Details:
 --------
 
 > Default output behavior:
 
 > By default, Solr outputs its log to console by stderr, so a way to redirect Solr's log is by running it with the command: java -jar start.jar 2> output.log. This way you won't have any log rolling. This is only an easy way to start working while developing, but it's not recommended for production environments.
 
-o Logging Configuration:
+* Logging Configuration:
 ------------------------
 
 > Solr uses for logging the API SLF4J, which means that many different logging tools can be easily attached. By default, it comes with java.util.logging, but it can be changed to, for example log4J by changing the proper jars. See http://wiki.apache.org/solr/SolrLogging
 
-o What's included in the logs?
+* What's included in the logs?
 ------------------------------
 
 > Of course, the logs will show different things depending on the configuration. In this doc, I'll only consider and mention some things that I consider can help  operations and are shown by default (by using INFO level)
 
-o Bootstrap
+* Bootstrap
 -----------
 
 > Immediately after starting Solr some lines will show information related to the configuration that can be very helpful, specially on the development stage of the projects for troubleshooting
 
-o Solr Home
+* Solr Home
 -----------
 
 > Solr Home is the directory where the configuration of Solr's different cores are located. The solr.xml file will be located in the "solr home" directory, linking to where each core configuration is located. Typically, the cores are located inside the "solr home", under a directory with the same name as the core. One of the first things that the logger will show is the information about the "Solr Home" directory. For example:
@@ -42,7 +42,7 @@ INFO: looking for solr.xml: /home/user/trunk/solr/example/solr/solr.xml
 
 *** For information about how to set the Solr Home see http://wiki.apache.org/solr/SolrInstall
 
-o Used Jars:
+* Used Jars:
 ------------
 
 > During bootstrap, Solr will display all the external jars added to the classpath. Those jars can be configured (added or removed) from the schema.xml file. If a tool that requires an external jar (for example, language identification) is failing due to ClassNotFound or related exception, a typical problem is that the jar is not being correctly added to the classpath. These lines look like:
@@ -87,7 +87,7 @@ INFO: created search: solr.SearchHandler
 
 > This is all interesting information that can be extracted from the logs, specially for troubleshooting during development. See how the last two lines show where the "request" logs are generated (this is not the exact same log this document is describing but one where Jetty outputs all the requests to the server) plus the port where Solr is running. 
 
-o Search:
+* Search:
 ---------
 
 > A typical search in Solr will be logged also with INFO level like the following example:
@@ -101,7 +101,7 @@ INFO: [] webapp=/solr path=/select params={facet=true&facet.field=cat&facet.fiel
 
 > The log line will show the path were the request was issued (which shows the target request handler) plus all the parameters used explicitly in the query. Parameters that are configured in the solrconfig file are not displayed in this line. After the parameters, the log line shows: the number of hits for the query, the status (0 meaning OK) and the time spent in this request in milliseconds.
 
-o Distributed Search:
+* Distributed Search:
 ---------------------
 
 > When using distributed search, the log output is slightly different than on single instances requests. The reason why the log output is different is because evidently the distributed search works in a different way than  single instance search. When a Solr instance receives a distributed request (lets say, the server A), it will distribute the request to all of the Solr instances specified in the "shards" parameter (for example, servers B and C). With the request, A will send all the original parameters except for the "shards" parameter, and will include a parameter called "isShard", so that B and C know that this request is actually part of a distributed search. B and C will respond to A with the ids and the score of each of the documents matching the query (in case of sorting by score, otherwise the sorting fields are included in the response, for this, the "fl" parameter will also change). With this information, A sort by score, and request B and/or C the documents with a given set of IDs (the ones that made the top N list). Once B and C respond with those documents, A will respond to the user query with the list of top rated documents for the search. 
@@ -141,7 +141,7 @@ INFO: [] webapp=/solr path=/select params={facet=true&shards=B:port/solr,C:port/
 
 > This line will not show the total number of matches for the search, but it will show the status and the total query time for the request.
 
-o Update:
+* Update:
 ---------
 
 > Add/Update. This is a typical log section for "adds":
@@ -156,7 +156,7 @@ INFO: [] webapp=/solr path=/update params={wt=javabin&version=2} status=0 QTime=
 
 > The first line shows the IDs of the documents that were added in the request. If the number of documents added in the request is big, not all of the IDs will be displayed and instead, just the first ones plus the total number will be shown. It also shows the status (the first number, being 0 = OK) and the request time in milliseconds.The last line of the snippet shows the path of the request plus the parameters used for the request and (again) the status and time spent in ms.
 
-o Commit:
+* Commit:
 ---------
 
 > A commit operation will be displayed like:
@@ -240,7 +240,7 @@ INFO: {commit=} 0 657
 
 > This means that the commit operation was finised in 657 ms (status 0 means OK)
 
-o Replication:
+* Replication:
 --------------
 
 > With no changes in the master
