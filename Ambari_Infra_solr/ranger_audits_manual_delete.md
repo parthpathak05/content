@@ -5,7 +5,7 @@
 -> To by pass the same below is the procedure. 
 -> This gets your work done fast, but, it is not recommended. Use the APIs to delete as it is going to take care of removing the right parts and details.
 
-* Procedure:
+#### * Procedure:
 ------------
 
 1. Put in maintenance mode and stop Ranger Admin.
