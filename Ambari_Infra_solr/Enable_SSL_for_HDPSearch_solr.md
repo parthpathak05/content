@@ -1,7 +1,7 @@
 #### SSL for Solr:
 ----------------
 
-```
+
 > source /etc/hadoop/conf/hadoop-env.sh
 
 > ./keytool -genkeypair -alias solr-ssl -keyalg RSA -keysize 2048 -keypass secret -storepass secret -validity 9999 -keystore solr-ssl.keystore.jks
@@ -27,4 +27,3 @@
 > chown -R solr:hadoop solr-ssl-keys/
 
 > /usr/cloudera-hdp-solr/5.0.0.0-102/cloudera-hdp-solr/solr/server/scripts/cloud-scripts/zkcli.sh -zkhost c4218-node3:2181/solr -cmd clusterprop -name urlScheme -val https
-```
