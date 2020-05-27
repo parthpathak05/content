@@ -1,4 +1,5 @@
-What is a Searcher in Solr?
+### What is a Searcher in Solr?
+---
 
 Related to the indexing in Solr: the Searcher (actually IndexSearcher as of Solr4) is the Solr / Lucene internal to the indexing and searching backend component, as you call it. The idea is that when you index documents in Solr, they become visible upon commit operation has finished. This is when the Searcher reopens the index and sees the changes that were done since the last commit operation.
 
