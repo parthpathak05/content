@@ -8,12 +8,12 @@ By default, Solr outputs its log to console by stderr, so a way to redirect Solr
 #### 2. Logging Configuration:
 ------------------------
 
-> Solr uses for logging the API SLF4J, which means that many different logging tools can be easily attached. By default, it comes with java.util.logging, but it can be changed to, for example log4J by changing the proper jars. See http://wiki.apache.org/solr/SolrLogging
+Solr uses for logging the API SLF4J, which means that many different logging tools can be easily attached. By default, it comes with java.util.logging, but it can be changed to, for example log4J by changing the proper jars. See http://wiki.apache.org/solr/SolrLogging
 
 #### 3. What's included in the logs?
 ------------------------------
 
-> Of course, the logs will show different things depending on the configuration. In this doc, I'll only consider and mention some things that I consider can help  operations and are shown by default (by using INFO level)
+Of course, the logs will show different things depending on the configuration. In this doc, I'll only consider and mention some things that I consider can help  operations and are shown by default (by using INFO level)
 
 #### 4. Bootstrap
 -----------
@@ -23,7 +23,7 @@ By default, Solr outputs its log to console by stderr, so a way to redirect Solr
 #### 5. Solr Home
 -----------
 
-> Solr Home is the directory where the configuration of Solr's different cores are located. The solr.xml file will be located in the "solr home" directory, linking to where each core configuration is located. Typically, the cores are located inside the "solr home", under a directory with the same name as the core. One of the first things that the logger will show is the information about the "Solr Home" directory. For example:
+Solr Home is the directory where the configuration of Solr's different cores are located. The solr.xml file will be located in the "solr home" directory, linking to where each core configuration is located. Typically, the cores are located inside the "solr home", under a directory with the same name as the core. One of the first things that the logger will show is the information about the "Solr Home" directory. For example:
 
 ```
 Jan 23, 2012 11:14:20 AM org.apache.solr.core.SolrResourceLoader locateSolrHome
@@ -36,14 +36,14 @@ INFO: Solr home set to 'solr/'
 INFO: looking for solr.xml: /home/user/trunk/solr/example/solr/solr.xml
 ```
 
-> After the solr.xml file is located, Solr will display information about the directory to use for each of the cores.
+After the solr.xml file is located, Solr will display information about the directory to use for each of the cores.
 
 *** For information about how to set the Solr Home see http://wiki.apache.org/solr/SolrInstall
 
 #### 6. Used Jars:
 ------------
 
-> During bootstrap, Solr will display all the external jars added to the classpath. Those jars can be configured (added or removed) from the schema.xml file. If a tool that requires an external jar (for example, language identification) is failing due to ClassNotFound or related exception, a typical problem is that the jar is not being correctly added to the classpath. These lines look like:
+During bootstrap, Solr will display all the external jars added to the classpath. Those jars can be configured (added or removed) from the schema.xml file. If a tool that requires an external jar (for example, language identification) is failing due to ClassNotFound or related exception, a typical problem is that the jar is not being correctly added to the classpath. These lines look like:
 
 ```
 Jan 23, 2012 11:14:20 AM org.apache.solr.core.SolrResourceLoader replaceClassLoader
@@ -81,12 +81,12 @@ INFO: created search: solr.SearchHandler
 2012-01-23 11:16:01.170:INFO::Started SocketConnector@0.0.0.0:8983
 ```
 
-> This is all interesting information that can be extracted from the logs, specially for troubleshooting during development. See how the last two lines show where the "request" logs are generated (this is not the exact same log this document is describing but one where Jetty outputs all the requests to the server) plus the port where Solr is running. 
+ This is all interesting information that can be extracted from the logs, specially for troubleshooting during development. See how the last two lines show where the "request" logs are generated (this is not the exact same log this document is describing but one where Jetty outputs all the requests to the server) plus the port where Solr is running. 
 
 #### 7. Search:
 ---------
 
-> A typical search in Solr will be logged also with INFO level like the following example:
+ A typical search in Solr will be logged also with INFO level like the following example:
 
 ```
 [...]
@@ -95,46 +95,46 @@ INFO: [] webapp=/solr path=/select params={facet=true&facet.field=cat&facet.fiel
 [...]
 ```
 
-> The log line will show the path were the request was issued (which shows the target request handler) plus all the parameters used explicitly in the query. Parameters that are configured in the solrconfig file are not displayed in this line. After the parameters, the log line shows: the number of hits for the query, the status (0 meaning OK) and the time spent in this request in milliseconds.
+ The log line will show the path were the request was issued (which shows the target request handler) plus all the parameters used explicitly in the query. Parameters that are configured in the solrconfig file are not displayed in this line. After the parameters, the log line shows: the number of hits for the query, the status (0 meaning OK) and the time spent in this request in milliseconds.
 
 #### 8. Distributed Search:
 ---------------------
 
-> When using distributed search, the log output is slightly different than on single instances requests. The reason why the log output is different is because evidently the distributed search works in a different way than  single instance search. When a Solr instance receives a distributed request (lets say, the server A), it will distribute the request to all of the Solr instances specified in the "shards" parameter (for example, servers B and C). With the request, A will send all the original parameters except for the "shards" parameter, and will include a parameter called "isShard", so that B and C know that this request is actually part of a distributed search. B and C will respond to A with the ids and the score of each of the documents matching the query (in case of sorting by score, otherwise the sorting fields are included in the response, for this, the "fl" parameter will also change). With this information, A sort by score, and request B and/or C the documents with a given set of IDs (the ones that made the top N list). Once B and C respond with those documents, A will respond to the user query with the list of top rated documents for the search. 
+ When using distributed search, the log output is slightly different than on single instances requests. The reason why the log output is different is because evidently the distributed search works in a different way than  single instance search. When a Solr instance receives a distributed request (lets say, the server A), it will distribute the request to all of the Solr instances specified in the "shards" parameter (for example, servers B and C). With the request, A will send all the original parameters except for the "shards" parameter, and will include a parameter called "isShard", so that B and C know that this request is actually part of a distributed search. B and C will respond to A with the ids and the score of each of the documents matching the query (in case of sorting by score, otherwise the sorting fields are included in the response, for this, the "fl" parameter will also change). With this information, A sort by score, and request B and/or C the documents with a given set of IDs (the ones that made the top N list). Once B and C respond with those documents, A will respond to the user query with the list of top rated documents for the search. 
 
-> Continuing with the above example, the server A will receive a request like:
+ Continuing with the above example, the server A will receive a request like:
 
 ```
 http://A:port/solr/select?q=name:solr&facet=true&facet.field=cat&facet.field=popularity&fq=cat:software&shards=B:port/solr,C:port/solr
 ```
 
-> A will distribute the request to B and C and they will log something like this:
+ A will distribute the request to B and C and they will log something like this:
 
 ```
 Jan 23, 2012 3:57:17 PM org.apache.solr.core.SolrCore execute
 INFO: [] webapp=/solr path=/select params={facet=true&f.popularity.facet.limit=160&wt=javabin&rows=10&version=2&f.cat.facet.limit=160&NOW=1327345037405&shard.url=[B or C]:port/solr&fl=id,score&start=0&q=name:solr&facet.field=cat&facet.field=popularity&isShard=true&fsv=true&fq=cat:software} hits=2 status=0 QTime=14 
 ```
 
-> This looks very similar to a  regular request, but it has some parameters that were added automatically. The above line also logs the number of hits for this shard, the status and the query time for this shard. Note that these are partial QTime and partial hits, just for this shard.
-> A will get the response from B and C and will sort the results by score. Once it does it, it will request specific documents to them, that's why you'll see them log a line like:
+ This looks very similar to a  regular request, but it has some parameters that were added automatically. The above line also logs the number of hits for this shard, the status and the query time for this shard. Note that these are partial QTime and partial hits, just for this shard.
+ A will get the response from B and C and will sort the results by score. Once it does it, it will request specific documents to them, that's why you'll see them log a line like:
 
 ```
 INFO: [] webapp=/solr path=/select params={facet=false&shard.url=[B or C]:port/solr&NOW=1327345037405&q=name:solr&ids=SOLR1001,SOLR1000&facet.field=cat&facet.field=popularity&isShard=true&wt=javabin&fq=cat:software&rows=10&version=2} status=0 QTime=1 
 ```
 
-> Finally, A will respond to the distributed search and log:
+ Finally, A will respond to the distributed search and log:
 
 ```
 Jan 23, 2012 3:57:17 PM org.apache.solr.core.SolrCore execute
 INFO: [] webapp=/solr path=/select params={facet=true&shards=B:port/solr,C:port/solr&facet.field=cat&facet.field=popularity&fq=cat:software&q=name:solr} status=0 QTime=338 
 ```
 
-> This line will not show the total number of matches for the search, but it will show the status and the total query time for the request.
+ This line will not show the total number of matches for the search, but it will show the status and the total query time for the request.
 
 #### 9. Update:
 ---------
 
-> Add/Update. This is a typical log section for "adds":
+ Add/Update. This is a typical log section for "adds":
 
 ```
 INFO: {add=[0, 1, 2, 3, 4, 5, 6, 7, ... (100 adds)]} 0 281
@@ -142,19 +142,19 @@ Jan 23, 2012 1:10:03 PM org.apache.solr.core.SolrCore execute
 INFO: [] webapp=/solr path=/update params={wt=javabin&version=2} status=0 QTime=281 
 ```
 
-> The first line shows the IDs of the documents that were added in the request. If the number of documents added in the request is big, not all of the IDs will be displayed and instead, just the first ones plus the total number will be shown. It also shows the status (the first number, being 0 = OK) and the request time in milliseconds.The last line of the snippet shows the path of the request plus the parameters used for the request and (again) the status and time spent in ms.
+ The first line shows the IDs of the documents that were added in the request. If the number of documents added in the request is big, not all of the IDs will be displayed and instead, just the first ones plus the total number will be shown. It also shows the status (the first number, being 0 = OK) and the request time in milliseconds.The last line of the snippet shows the path of the request plus the parameters used for the request and (again) the status and time spent in ms.
 
 #### 10. Commit:
 ---------
 
-> A commit operation will be displayed like:
+ A commit operation will be displayed like:
 
 ```
 Jan 23, 2012 1:10:03 PM org.apache.solr.update.DirectUpdateHandler2 commit
 INFO: start commit(optimize=false,waitSearcher=true,expungeDeletes=false,softCommit=false)
 ```
 
-> Shows when the commit is issued and the parameters used for it.
+ Shows when the commit is issued and the parameters used for it.
 
 ```
 Jan 23, 2012 1:10:03 PM org.apache.solr.core.SolrDeletionPolicy onCommit
@@ -166,7 +166,7 @@ INFO: SolrDeletionPolicy.onCommit: commits:num=2
  commit{dir=/home/user/Documents/solr/solr-trunk/trunk/solr/example/solr/data/index,segFN=segments_3,version=1327327721226,generation=3,filenames=[_1_nrm.cfs, _0_0.frq, _0.fnm, _1_0.frq, _1.per, _1_0.tim, _0_0.tip, _0_0.tim, _0_nrm.cfs, _1.fnm, _1_0.prx, _1_nrm.cfe, _1.fdx, _0_0.prx, _1.fdt, _0_nrm.cfe, _0.fdx, _0.per, _1_0.tip, segments_3, _0.fdt]
 ```
 
-> This information belongs to the "Deletion Policy". The Deletion policy determines when a a commit point is going to be deleted (the default is to keep just one commit, this can be configured through solrconfig.xml). The two lines show the two existing commits (the old one and the one just created) with the files they contain. Currently Solr can't make much use of older commit points.
+ This information belongs to the "Deletion Policy". The Deletion policy determines when a a commit point is going to be deleted (the default is to keep just one commit, this can be configured through solrconfig.xml). The two lines show the two existing commits (the old one and the one just created) with the files they contain. Currently Solr can't make much use of older commit points.
 
 ```
 INFO: newest commit = 1327327721226
@@ -190,9 +190,9 @@ INFO: autowarming result for Searcher@6f3b625b main{DirectoryReader(segments_3:1
  fieldValueCache{lookups=0,hits=0,hitratio=0.00,inserts=0,evictions=0,size=0,warmupTime=0,cumulative_lookups=0,cumulative_hits=0,cumulative_hitratio=0.00,cumulative_inserts=0,cumulative_evictions=0}
 ```
 
-> In Solr, caches are owned by the Index Searcher. Each Index Searcher contains a set of caches, and when a new one is created (after a commit operation for example), it will automatically warm its caches by getting cache items from the existing Index Searcher (the one currently being used to respond queries). That's the information that is being logged in the above lines. The second line displays the new searcher (that is being warmed) and the old (current) searcher. The third line, information about the actual cache of the old searcher.
-> The fifth and the sixth lines show information about the new index searcher and the new cache after warming it. 
-> This is repeated for each of the different Solr caches (fieldValueCache, filterCache, documentCache and queryResultCache). 
+ In Solr, caches are owned by the Index Searcher. Each Index Searcher contains a set of caches, and when a new one is created (after a commit operation for example), it will automatically warm its caches by getting cache items from the existing Index Searcher (the one currently being used to respond queries). That's the information that is being logged in the above lines. The second line displays the new searcher (that is being warmed) and the old (current) searcher. The third line, information about the actual cache of the old searcher.
+ The fifth and the sixth lines show information about the new index searcher and the new cache after warming it. 
+ This is repeated for each of the different Solr caches (fieldValueCache, filterCache, documentCache and queryResultCache). 
 
 ```
 Jan 23, 2012 1:10:03 PM org.apache.solr.core.SolrCore registerSearcher
