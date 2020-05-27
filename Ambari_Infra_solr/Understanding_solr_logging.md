@@ -223,8 +223,8 @@ INFO: {commit=} 0 657
 #### 11. Replication:
 --------------
 
-> With no changes in the master
-> The slave will periodically request to the master the version and generation of its index. For each of those request, the master will output: 
+ With no changes in the master
+ The slave will periodically request to the master the version and generation of its index. For each of those request, the master will output: 
 
 ```
 Jan 23, 2012 4:46:40 PM org.apache.solr.core.SolrCore execute
@@ -267,4 +267,4 @@ INFO: [] webapp=/solr path=/replication params={command=filecontent&checksum=tru
 ...
 ```
 
-> After the new files are downloaded, the slave will proceed to commit it's own index (to make the new index available for searches), so the log will display lines exactly like the ones mentioned in the "commit" section.
+ After the new files are downloaded, the slave will proceed to commit it's own index (to make the new index available for searches), so the log will display lines exactly like the ones mentioned in the "commit" section.
