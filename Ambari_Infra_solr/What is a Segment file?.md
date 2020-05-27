@@ -2,7 +2,6 @@
 What does a segment file in Solr contian and general facts?
 ------------------------------------------------------------------
 
-```
 > A segment consist of multiple files, including the index (for example the term 'friday' appears in documents 1, 4, 5, whatever), docvalues if they are configured, the values of the fields marked as stored, etc. So yes, basically the document index data.
 > When you do a hard commit, it closes the current transaction log files and moves them to a segment, which will then be closed and a new one opened.
 > Once a segment is written, it is not modified again.
@@ -18,5 +17,4 @@ What does a segment file in Solr contian and general facts?
 > So, the tieredmergepolicy aims to draw a balance, to keep the number of segments relatively low but trying not to overload the system with frequent copy operations
 > This balance can be controlled by the parameters in solrconfig.xml, like the mergefactor.
 > This parameter is usually set to 10 (for infra solr AFAIK it is 5)
-usually the default values provide a good balance, but rarely, if we think that the indexing operation is slowed down by the too frequent merges, we can adjust this
-```
+usually the default values provide a good balance, but rarely, if we think that the indexing operation is slowed down by the too frequent merges, we can adjust this.
