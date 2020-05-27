@@ -18,9 +18,11 @@ o Update:
 
 Starting with Solr 5.1 the 100 count mentioned on point 3 is configurable .  To take that count higher , you need to modify the <updateLog> section within your solrconfig.xml file
 
+```
 <updateLog>
     <str name="dir">${solr.ulog.dir:}</str>
     <str name="numRecordsToKeep">${solr.ulog.numRecordsToKeep:100}</str>
 </updateLog>
+```
 
- ***Note the documents that are are sent via the "PeerSync" are not streamed. They are sent as a POST request. So setting a number too high will cause the request to fail. The default POST size limit for Jetty is 20MB ( http://wiki.eclipse.org/Jetty/Howto/Configure_Form_Size#Changing_the_Maximum_Form_Size_for_All_Apps_in_the_JVM ) , so one needs to make sure the numRecordsToKeep count multiplied by document size doesn't exceed that.
+#### ***Note the documents that are are sent via the "PeerSync" are not streamed. They are sent as a POST request. So setting a number too high will cause the request to fail. The default POST size limit for Jetty is 20MB ( http://wiki.eclipse.org/Jetty/Howto/Configure_Form_Size#Changing_the_Maximum_Form_Size_for_All_Apps_in_the_JVM ) , so one needs to make sure the numRecordsToKeep count multiplied by document size doesn't exceed that.
