@@ -1,5 +1,5 @@
 ------------------------------------------------------------------
-|### Q. What does a segment file in Solr contian and general facts? |
+What does a segment file in Solr contian and general facts?
 ------------------------------------------------------------------
 
 ```
