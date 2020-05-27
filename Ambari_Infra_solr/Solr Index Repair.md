@@ -38,9 +38,10 @@ Took 0.077 sec total.
 o Also read the below information:
 ----------------------------------
 
--exorcise: actually write a new segments_N file, removing any problematic segments. *LOSES DATA*
--segment X: only check the specified segment(s). This can be specified multiple times, to check more than one segment, eg -segment _2 -segment _a. You can't use this with the -exorcise option.
-WARNING: -exorcise should only be used on an emergency basis as it will cause documents (perhaps many) to be permanently removed from the index. Always make a backup copy of your index before running this! Do not run this tool on an index that is actively being written to. You have been warned!
+> -exorcise: actually write a new segments_N file, removing any problematic segments. *LOSES DATA*
+> -segment X: only check the specified segment(s). This can be specified multiple times, to check more than one segment, eg -segment _2 -segment _a. You can't use this with the -exorcise option.
+
+*** WARNING: -exorcise should only be used on an emergency basis as it will cause documents (perhaps many) to be permanently removed from the index. Always make a backup copy of your index before running this! Do not run this tool on an index that is actively being written to. You have been warned!
 
 Run without -exorcise, this tool will open the index, report version information and report any exceptions it hits and what action it would take if -exorcise were specified. With -exorcise, this tool will remove any segments that have issues and write a new segments_N file. This means all documents contained in the affected segments will be removed.
 
