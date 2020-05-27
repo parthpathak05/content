@@ -218,7 +218,7 @@ This means that the old searcher was closed, all the requests that the old searc
 INFO: {commit=} 0 657
 ```
 
-> This means that the commit operation was finised in 657 ms (status 0 means OK)
+ This means that the commit operation was finised in 657 ms (status 0 means OK)
 
 #### 11. Replication:
 --------------
