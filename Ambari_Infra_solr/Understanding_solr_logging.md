@@ -1,30 +1,25 @@
----
 #### 1. Details:
---------
+---
 
 Default output behavior:
 
 By default, Solr outputs its log to console by stderr, so a way to redirect Solr's log is by running it with the command: java -jar start.jar 2> output.log. This way you won't have any log rolling. This is only an easy way to start working while developing, but it's not recommended for production environments.
 
----
 #### 2. Logging Configuration:
 ------------------------
 
 Solr uses for logging the API SLF4J, which means that many different logging tools can be easily attached. By default, it comes with java.util.logging, but it can be changed to, for example log4J by changing the proper jars. See http://wiki.apache.org/solr/SolrLogging
 
----
 #### 3. What's included in the logs?
 ------------------------------
 
 Of course, the logs will show different things depending on the configuration. In this doc, I'll only consider and mention some things that I consider can help  operations and are shown by default (by using INFO level)
 
----
 #### 4. Bootstrap
 -----------
 
-> Immediately after starting Solr some lines will show information related to the configuration that can be very helpful, specially on the development stage of the projects for troubleshooting
+ Immediately after starting Solr some lines will show information related to the configuration that can be very helpful, specially on the development stage of the projects for troubleshooting
 
----
 #### 5. Solr Home
 -----------
 
@@ -45,7 +40,6 @@ After the solr.xml file is located, Solr will display information about the dire
 
 *** For information about how to set the Solr Home see http://wiki.apache.org/solr/SolrInstall
 
----
 #### 6. Used Jars:
 ------------
 
@@ -89,7 +83,6 @@ INFO: created search: solr.SearchHandler
 
  This is all interesting information that can be extracted from the logs, specially for troubleshooting during development. See how the last two lines show where the "request" logs are generated (this is not the exact same log this document is describing but one where Jetty outputs all the requests to the server) plus the port where Solr is running. 
 
----
 #### 7. Search:
 ---------
 
@@ -104,7 +97,6 @@ INFO: [] webapp=/solr path=/select params={facet=true&facet.field=cat&facet.fiel
 
  The log line will show the path were the request was issued (which shows the target request handler) plus all the parameters used explicitly in the query. Parameters that are configured in the solrconfig file are not displayed in this line. After the parameters, the log line shows: the number of hits for the query, the status (0 meaning OK) and the time spent in this request in milliseconds.
 
----
 #### 8. Distributed Search:
 ---------------------
 
@@ -139,7 +131,6 @@ INFO: [] webapp=/solr path=/select params={facet=true&shards=B:port/solr,C:port/
 
  This line will not show the total number of matches for the search, but it will show the status and the total query time for the request.
 
----
 #### 9. Update:
 ---------
 
@@ -153,7 +144,6 @@ INFO: [] webapp=/solr path=/update params={wt=javabin&version=2} status=0 QTime=
 
  The first line shows the IDs of the documents that were added in the request. If the number of documents added in the request is big, not all of the IDs will be displayed and instead, just the first ones plus the total number will be shown. It also shows the status (the first number, being 0 = OK) and the request time in milliseconds.The last line of the snippet shows the path of the request plus the parameters used for the request and (again) the status and time spent in ms.
 
----
 #### 10. Commit:
 ---------
 
@@ -230,7 +220,6 @@ INFO: {commit=} 0 657
 
  This means that the commit operation was finised in 657 ms (status 0 means OK)
 
----
 #### 11. Replication:
 --------------
 
