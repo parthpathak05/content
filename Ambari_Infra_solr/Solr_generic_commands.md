@@ -73,7 +73,7 @@ $ curl --negotiate -u : "http://$(hostname -f):8886/solr/admin/collections?actio
 $ curl -ikv --negotiate -u: "http://$(hostname -f):8983/solr/<collection_name>/update?commit=true"
 ```
 
--> This is going to do a hard commit and create a new segment with all the documents in it on the local disk. 
+This is going to do a hard commit and create a new segment with all the documents in it on the storage (either local of HDFS). 
 
 
 #### 6) To query a collection from command line:
@@ -87,7 +87,7 @@ $ curl -ikv --negotiate -u: "http://$(hostname -f):8886/solr/ranger_audits/selec
 
 Can use the query to sort using ascending (asc) or descending (desc) order.
 
-For example: To sort the output according to the "_version_" feild:
+- For example: To sort the output according to the "_version_" feild:
 
 ```
 $ curl -ikv --negotiate -u: http://c2218-node2.labs.support.hortonworks.com:8886/solr/ranger_audits/select?q=*:*&rows=10&sort=_version_%20asc&wt=json
@@ -107,14 +107,14 @@ $ curl -ikv --negotiate -u http://$(hostname -f):8886/solr/<collection/shard nam
 
 
 
-#### 7) To back up a SOLR collection in Solr Cloud mode:
+#### 7) To back up a SOLR collection in Solr Cloud mode (Solr 6.x nd above):
 ---------------------------------------------------
 
 ```
 $ curl -ikv --negotiate -u : "http://$(hostname -f):8886/solr/admin/collections?action=BACKUP&name=<myBackupName>&collection=<myCollectionName>&location=</path/to/my/shared/drive>
 ```
 
-#### 8) To restore a SOLR collection in Solr cloud mode:
+#### 8) To restore a SOLR collection in Solr cloud mode (Solr 6.x nd above):
 ---------------------------------------------------
 
 ```
@@ -144,7 +144,7 @@ curl -ikv --negotiate -u : "http://$(hostname -f):8886/solr/admin/collections?ac
 $ curl -ikv --negotiate -u : "http://$(hostname -f):8886/solr/admin/collections?action=ADDREPLICA&collection=vertex_index&shard=shard1&node=c2218-node2.labs.suqadron.hortonworks.com:8886_solr"
 ```
 
-***NOTE: More details can be found at:
+* NOTE: More details can be found at:
 [Lucene Documentation](https://lucene.apache.org/solr/guide/6_6/collections-api.html)
 
 
@@ -155,7 +155,7 @@ $ curl -ikv --negotiate -u : "http://$(hostname -f):8886/solr/admin/collections?
 $ curl "http://$(hostname -f):8886/solr/admin/collections?action=SPLITSHARD&collection=ranger_audits&shard=shard1&indent=true"
 ```
 
-#### For Kerberos:
+- For Kerberos enabled clusters:
 ---
 
 ```
@@ -165,7 +165,7 @@ curl -ikv --negotiate -u: "http://$(hostname -f):8886/solr/admin/collections?act
 ***Can use an "async" call to put the thread in the BG.
 
 
-#### Backup the OLD configs for Ambari Infra Solr for ranger_audits collection:
+#### 12) Backup the OLD configs for Ambari Infra Solr for ranger_audits collection:
 ----------------------------------------------------------------------------
 
 -> This can be done for any config set that is available in ZK. The config sets are present under `/infra-solr/configs`.
@@ -174,7 +174,7 @@ curl -ikv --negotiate -u: "http://$(hostname -f):8886/solr/admin/collections?act
 #/usr/lib/ambari-infra-solr/server/scripts/cloud-scripts/zkcli.sh -zkhost c165-node2.local.domain:2181/infra-solr -cmd downconfig -confname ranger_audits -confdir /tmp/OLDRANGER/ 
 ```
 
-#### Solr check index tool:
+#### 13) Solr check index tool:
 ------------------------
 
 - This is helpful when you have to perform a index check for any corruption.
@@ -199,28 +199,26 @@ $ $JAVA_HOME -cp /opt/lucidworks-hdpsearch/solr/server/solr-webapp/webapp/WEB-IN
 
 -> This will remove the corrupted index file. Please make sure that the "exorcise" command is run with "infra-solr" (service) user (there might be some data loss as the corrupt segments are purged). The command is going to delete a corrupt index file and create a new one merging the un-merged indexes.
 
-For example: 
+- For example: 
 
 ```
 $ /usr/jdk64/jdk1.8.0_92/bin/java -cp /opt/lucidworks-hdpsearch/solr/server/solr-webapp/webapp/WEB-INF/lib/lucene-core-5.2.1.jar -ea:org.apache.lucene... org.apache.lucene.index.CheckIndex /opt/lucidworks-hdpsearch/solr/server/solr/DOCSS_UAT2_shard2_replica1/data/ -exorcise
 ```
 
-#### Helpful articles:
--------------------
-
-[Understanding Ambari Infra](https://docs.hortonworks.com/HDPDocuments/Ambari-2.7.3.0/using-ambari-core-services/content/amb_understanding_ambari_infra.html)
-
-[Ambari HDF Upgrade](https://docs.hortonworks.com/HDPDocuments/HDF3/HDF-3.4.0/ambari-managed-hdf-upgrade-ppc/content/hdf-upgrade-ambari-infra.html)
-
-
-#### Updating the security.json in Kerberized clusters for Apache Solr:
+#### 14) Updating the security.json in Kerberized clusters for Apache Solr:
 --------------------------------------------------------------------
 
 ```
 $ /opt/lucidworks-hdpsearch/solr/server/scripts/cloud-scripts/zkcli.sh -zkhost c3218-node2.hwx.internal2:2181,c3218-node3.hwx.internal2:2181,c3218-node4.hwx.internal2:2181 -cmd put /solr/security.json '{"authentication":{"class": "org.apache.solr.security.KerberosPlugin"}}'  
 ```
 
----
+#### 15) Helpful articles:
+-------------------
+
+- [Understanding Ambari Infra](https://docs.hortonworks.com/HDPDocuments/Ambari-2.7.3.0/using-ambari-core-services/content/amb_understanding_ambari_infra.html)
+
+- [Ambari HDF Upgrade](https://docs.hortonworks.com/HDPDocuments/HDF3/HDF-3.4.0/ambari-managed-hdf-upgrade-ppc/content/hdf-upgrade-ambari-infra.html)
+
 - [How-to-setup-and-secure-a-SolrCloud-cluster-with-Kerberos-and-Ranger](https://support.hortonworks.com/s/article/How-to-setup-and-secure-a-SolrCloud-cluster-with-Kerberos-and-Ranger)
 
 
