@@ -221,13 +221,11 @@ $ /usr/jdk64/jdk1.8.0_92/bin/java -cp /opt/lucidworks-hdpsearch/solr/server/solr
 $ /opt/lucidworks-hdpsearch/solr/server/scripts/cloud-scripts/zkcli.sh -zkhost c3218-node2.hwx.internal2:2181,c3218-node3.hwx.internal2:2181,c3218-node4.hwx.internal2:2181 -cmd put /solr/security.json '{"authentication":{"class": "org.apache.solr.security.KerberosPlugin"}}'  
 ```
 
-#### * How to setup and secure a SolrCloud cluster with Kerberos and Ranger:
------------------------------------------------------------------------
 
-[How-to-setup-and-secure-a-SolrCloud-cluster-with-Kerberos-and-Ranger](https://support.hortonworks.com/s/article/How-to-setup-and-secure-a-SolrCloud-cluster-with-Kerberos-and-Ranger)
+- [How-to-setup-and-secure-a-SolrCloud-cluster-with-Kerberos-and-Ranger](https://support.hortonworks.com/s/article/How-to-setup-and-secure-a-SolrCloud-cluster-with-Kerberos-and-Ranger)
 
 
-[Modifying-Ranger-Audit-Solr-Config](https://community.cloudera.com/t5/Community-Articles/Modifying-Ranger-Audit-Solr-Config/ta-p/244899)
+- [Modifying-Ranger-Audit-Solr-Config](https://community.cloudera.com/t5/Community-Articles/Modifying-Ranger-Audit-Solr-Config/ta-p/244899)
 
 
 - Documentation for [Solr Admin UI](https://lucene.apache.org/solr/guide/6_6/using-the-solr-administration-user-interface.html):
