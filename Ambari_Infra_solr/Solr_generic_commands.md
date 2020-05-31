@@ -3,15 +3,18 @@
 ***Note: Please change the port to 8886 when referring to Ambari Infra Solr and 8983 when referring to Apache Solr.
 
 - To check if ambari-infra-solr server instance is running on the node:
+
 	 ```ps -elf | grep -i infra-solr```
 	 
  	 ```netstat -plant | grep -i 8886```
 
 - If the cluster is Kerberized:
   - Check for valid kerberos tickets:
+     
      ```klist -A```
   
   - Obtain a kerberos ticket if not present:
+    
     ```$ kinit -kt /etc/security/keytabs/ambari-infra-solr.service.keytab $(klist -kt /etc/security/keytabs/ambari-infra-solr.service.keytab |sed -n "4p"|cut -d ' ' -f7) ```
 
 
@@ -98,7 +101,8 @@ $ curl -ikv --negotiate -u: http://c2218-node2.labs.support.hortonworks.com:8886
 ```
 $ curl -ikv --negotiate -u http://$(hostname -f):8886/solr/<collection/shard name>/select?q=*:*&fq=repo:Apollo_kms&fq=result:0&wt=json&indent=true
 ```
-Documentation link for the Solr Admin UI (query) page:
+
+#### Documentation link for the Solr Admin UI (query) page:
 ------------------------------------------------------
 
 https://lucene.apache.org/solr/guide/6_6/query-screen.html#query-screen
