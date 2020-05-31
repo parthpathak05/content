@@ -257,7 +257,7 @@ $ /opt/lucidworks-hdpsearch/solr/server/scripts/cloud-scripts/zkcli.sh -zkhost c
 - [Modifying-Ranger-Audit-Solr-Config](https://community.cloudera.com/t5/Community-Articles/Modifying-Ranger-Audit-Solr-Config/ta-p/244899)
 
 
-- Documentation for [Solr Admin UI](https://lucene.apache.org/solr/guide/6_6/using-the-solr-administration-user-interface.html):
+- [Documentation for Solr Admin UI](https://lucene.apache.org/solr/guide/6_6/using-the-solr-administration-user-interface.html)
 
 
 - [Oliver Szabo's github link with Asciinemas](https://github.com/apache/ambari-infra/tree/master/ambari-infra-solr-client)
