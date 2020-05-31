@@ -214,14 +214,14 @@ $ /usr/jdk64/jdk1.8.0_92/bin/java -cp /opt/lucidworks-hdpsearch/solr/server/solr
 [Ambari HDF Upgrade](https://docs.hortonworks.com/HDPDocuments/HDF3/HDF-3.4.0/ambari-managed-hdf-upgrade-ppc/content/hdf-upgrade-ambari-infra.html)
 
 
-#### Updating the security.json in Kerberized clusters for Apache Solr:
+#### *Updating the security.json in Kerberized clusters for Apache Solr:
 --------------------------------------------------------------------
 
 ```
 $ /opt/lucidworks-hdpsearch/solr/server/scripts/cloud-scripts/zkcli.sh -zkhost c3218-node2.hwx.internal2:2181,c3218-node3.hwx.internal2:2181,c3218-node4.hwx.internal2:2181 -cmd put /solr/security.json '{"authentication":{"class": "org.apache.solr.security.KerberosPlugin"}}'  
 ```
 
-#### How to setup and secure a SolrCloud cluster with Kerberos and Ranger:
+#### * How to setup and secure a SolrCloud cluster with Kerberos and Ranger:
 -----------------------------------------------------------------------
 
 [How-to-setup-and-secure-a-SolrCloud-cluster-with-Kerberos-and-Ranger](https://support.hortonworks.com/s/article/How-to-setup-and-secure-a-SolrCloud-cluster-with-Kerberos-and-Ranger)
@@ -230,11 +230,10 @@ $ /opt/lucidworks-hdpsearch/solr/server/scripts/cloud-scripts/zkcli.sh -zkhost c
 [Modifying-Ranger-Audit-Solr-Config](https://community.cloudera.com/t5/Community-Articles/Modifying-Ranger-Audit-Solr-Config/ta-p/244899)
 
 
-#### Documentation for [Solr Admin UI](https://lucene.apache.org/solr/guide/6_6/using-the-solr-administration-user-interface.html):
-----------------------------------
+- Documentation for [Solr Admin UI](https://lucene.apache.org/solr/guide/6_6/using-the-solr-administration-user-interface.html):
 
 
-#### Oliver Szabo's github link with Asciinemas:
----------------------------------------------
+- [Oliver Szabo's github link with Asciinemas](https://github.com/apache/ambari-infra/tree/master/ambari-infra-solr-client)
 
-[Oliver Szabo's github link with Asciinemas](https://github.com/apache/ambari-infra/tree/master/ambari-infra-solr-client)
+
+
