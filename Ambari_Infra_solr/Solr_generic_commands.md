@@ -1,6 +1,7 @@
-*Generic commands in Ambari-Infra-Solr and Apache Solr* 
+### Generic commands in Ambari-Infra-Solr and Apache Solr* 
+---
 
-***Note: Please change the port to 8886 when referring to Ambari Infra Solr and 8983 when referring to Apache Solr.
+* Note: Please change the port to 8886 when referring to Ambari Infra Solr and 8983 when referring to Apache Solr.
 
 - To check if ambari-infra-solr server instance is running on the node:
 
@@ -82,7 +83,7 @@ $ curl -ikv --negotiate -u: "http://$(hostname -f):8983/solr/<collection_name>/u
 $ curl -ikv --negotiate -u: "http://$(hostname -f):8886/solr/ranger_audits/select?q=*%3A*&wt=json&rows=10&indent=true"
 ```
 
-Optional:
+- Optional:
 ---
 Can use the query to sort using ascending (asc) or descending (desc) order.
 
@@ -102,9 +103,7 @@ $ curl -ikv --negotiate -u: http://c2218-node2.labs.support.hortonworks.com:8886
 $ curl -ikv --negotiate -u http://$(hostname -f):8886/solr/<collection/shard name>/select?q=*:*&fq=repo:Apollo_kms&fq=result:0&wt=json&indent=true
 ```
 
-#### Documentation link for the [Solr Admin UI (query) page](https://lucene.apache.org/solr/guide/6_6/query-screen.html#query-screen)
-------------------------------------------------------
-
+- Documentation link for the [Solr Admin UI (query) page](https://lucene.apache.org/solr/guide/6_6/query-screen.html#query-screen)
 
 
 
