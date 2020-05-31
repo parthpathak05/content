@@ -84,7 +84,7 @@ $ curl -ikv --negotiate -u: "http://$(hostname -f):8886/solr/ranger_audits/selec
 ```
 
 - Optional:
----
+
 Can use the query to sort using ascending (asc) or descending (desc) order.
 
 For example: To sort the output according to the "_version_" feild:
@@ -97,13 +97,13 @@ $ curl -ikv --negotiate -u: http://c2218-node2.labs.support.hortonworks.com:8886
 $ curl -ikv --negotiate -u: http://c2218-node2.labs.support.hortonworks.com:8886/solr/ranger_audits/select?q=*:*&rows=10&sort=_version_%20desc&wt=json
 ```
 
-> Filter query (fq) example:
+- Filter query (fq) example:
 
 ```
 $ curl -ikv --negotiate -u http://$(hostname -f):8886/solr/<collection/shard name>/select?q=*:*&fq=repo:Apollo_kms&fq=result:0&wt=json&indent=true
 ```
 
-- Documentation link for the [Solr Admin UI (query) page](https://lucene.apache.org/solr/guide/6_6/query-screen.html#query-screen)
+- [Solr Admin UI (query) page](https://lucene.apache.org/solr/guide/6_6/query-screen.html#query-screen)
 
 
 
@@ -128,7 +128,7 @@ $ curl -ikv --negotiate -u : "http://$(hostname -f):8886/solr/admin/collections?
 $ curl -ikv --negotiate -u: "http://$(hostname -f):8886/solr/ranger_audits/update?commit=true" -H "Content-Type: text/xml" --data-binary "<delete><query>evtTime:[* TO NOW-15DAYS]</query></delete>"
 ```
 
-> This is going to delete data before 15 days from the current date.
+- This is going to delete data before 15 days from the current date.
 
 
 #### 10) To add replica for the collections:
@@ -138,7 +138,7 @@ $ curl -ikv --negotiate -u: "http://$(hostname -f):8886/solr/ranger_audits/updat
 curl -ikv --negotiate -u : "http://$(hostname -f):8886/solr/admin/collections?action=ADDREPLICA&collection=<collection_name>&shard=shard1&node=<hostname of the server>:8886_solr"
 ```
 
-Example:
+- Example:
 
 ```
 $ curl -ikv --negotiate -u : "http://$(hostname -f):8886/solr/admin/collections?action=ADDREPLICA&collection=vertex_index&shard=shard1&node=c2218-node2.labs.suqadron.hortonworks.com:8886_solr"
@@ -213,14 +213,14 @@ $ /usr/jdk64/jdk1.8.0_92/bin/java -cp /opt/lucidworks-hdpsearch/solr/server/solr
 [Ambari HDF Upgrade](https://docs.hortonworks.com/HDPDocuments/HDF3/HDF-3.4.0/ambari-managed-hdf-upgrade-ppc/content/hdf-upgrade-ambari-infra.html)
 
 
-#### *Updating the security.json in Kerberized clusters for Apache Solr:
+#### Updating the security.json in Kerberized clusters for Apache Solr:
 --------------------------------------------------------------------
 
 ```
 $ /opt/lucidworks-hdpsearch/solr/server/scripts/cloud-scripts/zkcli.sh -zkhost c3218-node2.hwx.internal2:2181,c3218-node3.hwx.internal2:2181,c3218-node4.hwx.internal2:2181 -cmd put /solr/security.json '{"authentication":{"class": "org.apache.solr.security.KerberosPlugin"}}'  
 ```
 
-
+---
 - [How-to-setup-and-secure-a-SolrCloud-cluster-with-Kerberos-and-Ranger](https://support.hortonworks.com/s/article/How-to-setup-and-secure-a-SolrCloud-cluster-with-Kerberos-and-Ranger)
 
 
@@ -231,6 +231,5 @@ $ /opt/lucidworks-hdpsearch/solr/server/scripts/cloud-scripts/zkcli.sh -zkhost c
 
 
 - [Oliver Szabo's github link with Asciinemas](https://github.com/apache/ambari-infra/tree/master/ambari-infra-solr-client)
-
-
+---
 
