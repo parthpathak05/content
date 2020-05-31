@@ -1,7 +1,7 @@
-### Generic commands in Ambari-Infra-Solr and Apache Solr* 
+### ***Generic commands in Ambari-Infra-Solr and Apache Solr
 ---
 
-* Note: Please change the port to 8886 when referring to Ambari Infra Solr and 8983 when referring to Apache Solr.
+* Note: Please change the port to 8886 when dealing with Ambari Infra Solr and to 8983 when dealing to Apache Solr/HDP Search Solr.
 
 - To check if ambari-infra-solr server instance is running on the node:
 
@@ -23,7 +23,7 @@
 -------------------------
 
 ```
-$ curl -ikv --negotiate -u : "http://$(hostname -f):8886/solr/admin/collections?action=list&indent=true"
+$ curl -ikv --negotiate -u : "http://$(hostname -f):8983/solr/admin/collections?action=list&indent=true"
 ```
 
 #### 2) CREATE A COLLECTION:
@@ -33,7 +33,7 @@ $ curl -ikv --negotiate -u : "http://$(hostname -f):8886/solr/admin/collections?
 $ curl -ikv --negotiate -u : "http://$(hostname -f):8983/solr/admin/collections?action=CREATE&name=<collection_name>" 
 ```
 
-Optional Values which are necessary when creating a collection manually using APIs:
+extra handles which are necessary when creating a collection manually using APIs:
 
 ```
 &numShards=<number>
@@ -42,28 +42,32 @@ Optional Values which are necessary when creating a collection manually using AP
 &replicationFactor=<number>
 ```
 
+Example command:
+
+```curl -ikv --negotiate -u : "http://$(hostname -f):8983/solr/admin/collections?action=CREATE&name=<collection_name>&numShards=<number>&collection.configName=nameofconfiguration&maxShardsPerNode=<number>&replicationFactor=<number>" ```
+
 #### 3) DELETE A COLLECTION & CONFIG set:
 ------------------------------------
 
 ```
-$ curl -ikv --negotiate -u : "http://$(hostname -f):8886/solr/admin/collections?action=DELETE&name=ranger_audits" 
+$ curl -ikv --negotiate -u : "http://$(hostname -f):8983/solr/admin/collections?action=DELETE&name=ranger_audits" 
 ```
 
 ```
-$ curl -ikv --negotiate -u : "http://$(hostname -f):8886/solr/admin/configs?action=DELETE&name=ranger_audits" 
+$ curl -ikv --negotiate -u : "http://$(hostname -f):8983/solr/admin/configs?action=DELETE&name=ranger_audits" 
 ```
 
 #### 4) CHECK SOLR cloud CLUSTER STATUS:
 -----------------------------------
 
 ```
-$ curl -ikv --negotiate -u : "http://$(hostname -f):8886/solr/admin/collections?action=clusterstatus&wt=json&indent=true"
+$ curl -ikv --negotiate -u : "http://$(hostname -f):8983/solr/admin/collections?action=clusterstatus&wt=json&indent=true"
 ```
 
 The below will beautify the Json format:
 
 ```
-$ curl --negotiate -u : "http://$(hostname -f):8886/solr/admin/collections?action=clusterstatus&wt=json&indent=true" | python -m json.tool 
+$ curl --negotiate -u : "http://$(hostname -f):8983/solr/admin/collections?action=clusterstatus&wt=json&indent=true" | python -m json.tool 
 ```
 
 #### 5) To issue a manual commit to SOLR:
@@ -80,12 +84,12 @@ This is going to do a hard commit and create a new segment with all the document
 -------------------------------------------
 
 ```
-$ curl -ikv --negotiate -u: "http://$(hostname -f):8886/solr/ranger_audits/select?q=*%3A*&wt=json&rows=10&indent=true"
+$ curl -ikv --negotiate -u: "http://$(hostname -f):8983/solr/ranger_audits/select?q=*%3A*&wt=json&rows=10&indent=true"
 ```
 
 - Optional:
 
-Can use the query to sort using ascending (asc) or descending (desc) order.
+***Can use the query to sort using ascending (asc) or descending (desc) order.
 
 - For example: To sort the output according to the "_version_" feild:
 
@@ -103,7 +107,7 @@ $ curl -ikv --negotiate -u: http://c2218-node2.labs.support.hortonworks.com:8886
 $ curl -ikv --negotiate -u http://$(hostname -f):8886/solr/<collection/shard name>/select?q=*:*&fq=repo:Apollo_kms&fq=result:0&wt=json&indent=true
 ```
 
-- [Solr Admin UI (query) page](https://lucene.apache.org/solr/guide/6_6/query-screen.html#query-screen)
+- Deatil as about more handles and feilds can be found here [Solr Admin UI (query) page](https://lucene.apache.org/solr/guide/6_6/query-screen.html#query-screen)
 
 
 
@@ -111,14 +115,14 @@ $ curl -ikv --negotiate -u http://$(hostname -f):8886/solr/<collection/shard nam
 ---------------------------------------------------
 
 ```
-$ curl -ikv --negotiate -u : "http://$(hostname -f):8886/solr/admin/collections?action=BACKUP&name=<myBackupName>&collection=<myCollectionName>&location=</path/to/my/shared/drive>
+$ curl -ikv --negotiate -u : "http://$(hostname -f):8983/solr/admin/collections?action=BACKUP&name=<myBackupName>&collection=<myCollectionName>&location=</path/to/my/shared/drive>
 ```
 
 #### 8) To restore a SOLR collection in Solr cloud mode (Solr 6.x nd above):
 ---------------------------------------------------
 
 ```
-$ curl -ikv --negotiate -u : "http://$(hostname -f):8886/solr/admin/collections?action=RESTORE&name=<myBackupName>&location=</path/to/my/shared/drive>&collection=<myRestoredCollectionName>
+$ curl -ikv --negotiate -u : "http://$(hostname -f):8983/solr/admin/collections?action=RESTORE&name=<myBackupName>&location=</path/to/my/shared/drive>&collection=<myRestoredCollectionName>
 ```
 
 #### 9) To delete the old entires from the collections log:
@@ -128,7 +132,8 @@ $ curl -ikv --negotiate -u : "http://$(hostname -f):8886/solr/admin/collections?
 $ curl -ikv --negotiate -u: "http://$(hostname -f):8886/solr/ranger_audits/update?commit=true" -H "Content-Type: text/xml" --data-binary "<delete><query>evtTime:[* TO NOW-15DAYS]</query></delete>"
 ```
 
-- This is going to delete data before 15 days from the current date.
+- The above command is going to delete data before 15 days from the current date.
+- You can modify the number accordingly and then execute.
 
 
 #### 10) To add replica for the collections:
@@ -145,10 +150,10 @@ $ curl -ikv --negotiate -u : "http://$(hostname -f):8886/solr/admin/collections?
 ```
 
 * NOTE: More details can be found at:
-[Lucene Documentation](https://lucene.apache.org/solr/guide/6_6/collections-api.html)
+[Lucene Documentation - Collections API](https://lucene.apache.org/solr/guide/6_6/collections-api.html)
 
 
-#### 11) Split Shard on ranger_audits collection:
+#### 11) Split Shard on "ranger_audits" collection:
 --------------------------------------------
 
 ```
@@ -156,14 +161,20 @@ $ curl "http://$(hostname -f):8886/solr/admin/collections?action=SPLITSHARD&coll
 ```
 
 - For Kerberos enabled clusters:
----
 
 ```
 curl -ikv --negotiate -u: "http://$(hostname -f):8886/solr/admin/collections?action=SPLITSHARD&collection=ranger_audits&shard=shard1&indent=true"
 ```
 
-***Can use an "async" call to put the thread in the BG.
+***Can use an "async" call to put the SPLITSHARD operation thread in the Background.
 
+- Example: 
+
+```
+- curl -ikv --negotiate -u: "http://$(hostname -f):8886/solr/admin/collections?action=SPLITSHARD&collection=ranger_audits&shard=shard1&indent=true&async=1000"
+
+- curl -ikv --negotiate -u: "http://$(hostname -f):8886/solr/admin/collections?action=REQUESTSTATUS&requestid=1000&wt=xml
+```
 
 #### 12) Backup the OLD configs for Ambari Infra Solr for ranger_audits collection:
 ----------------------------------------------------------------------------
