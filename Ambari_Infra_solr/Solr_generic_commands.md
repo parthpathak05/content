@@ -1,26 +1,26 @@
-Generic commands in Ambari-Infra-Solr and Apache Solr. 
+*Generic commands in Ambari-Infra-Solr and Apache Solr* 
 
 ***Note: Please change the port to 8886 when referring to Ambari Infra Solr and 8983 when referring to Apache Solr.
 
 - To check if ambari-infra-solr server instance is running on the node:
-	# ps -elf | grep -i infra-solr
- 	# netstat -plant | grep -i 8886
+	 ```ps -elf | grep -i infra-solr```
+ 	 ```netstat -plant | grep -i 8886```
 
 - If the cluster is Kerberized:
   - Check for valid kerberos tickets:
-    # klist -A
+     ```klist -A```
   
   - Obtain a kerberos ticket if not present:
-    $ kinit -kt /etc/security/keytabs/ambari-infra-solr.service.keytab $(klist -kt /etc/security/keytabs/ambari-infra-solr.service.keytab |sed -n "4p"|cut -d ' ' -f7) 
+    ```$ kinit -kt /etc/security/keytabs/ambari-infra-solr.service.keytab $(klist -kt /etc/security/keytabs/ambari-infra-solr.service.keytab |sed -n "4p"|cut -d ' ' -f7) ```
 
 
-1) LIST SOLR COLLECTIONS:
+#### 1) LIST SOLR COLLECTIONS:
 -------------------------
 
 $ curl -ikv --negotiate -u : "http://$(hostname -f):8886/solr/admin/collections?action=list&indent=true"
 
 
-2) CREATE A COLLECTION:
+#### 2) CREATE A COLLECTION:
 -----------------------
 
 $ curl -ikv --negotiate -u : "http://$(hostname -f):8983/solr/admin/collections?action=CREATE&name=<collection_name>" 
@@ -33,7 +33,7 @@ Optional Values which are necessary when creating a collection manually using AP
 &replicationFactor=<number>
 
 
-3) DELETE A COLLECTION & CONFIG set:
+#### 3) DELETE A COLLECTION & CONFIG set:
 ------------------------------------
 
 $ curl -ikv --negotiate -u : "http://$(hostname -f):8886/solr/admin/collections?action=DELETE&name=ranger_audits" 
@@ -41,7 +41,7 @@ $ curl -ikv --negotiate -u : "http://$(hostname -f):8886/solr/admin/collections?
 $ curl -ikv --negotiate -u : "http://$(hostname -f):8886/solr/admin/configs?action=DELETE&name=ranger_audits" 
 
 
-4) CHECK SOLR cloud CLUSTER STATUS:
+#### 4) CHECK SOLR cloud CLUSTER STATUS:
 -----------------------------------
 
 $ curl -ikv --negotiate -u : "http://$(hostname -f):8886/solr/admin/collections?action=clusterstatus&wt=json&indent=true"
@@ -51,7 +51,7 @@ The below will beautify the Json format:
 $ curl --negotiate -u : "http://$(hostname -f):8886/solr/admin/collections?action=clusterstatus&wt=json&indent=true" | python -m json.tool 
 
 
-5) To issue a manual commit to SOLR:
+#### 5) To issue a manual commit to SOLR:
 -------------------------------------
 
 $ curl -ikv --negotiate -u: "http://$(hostname -f):8983/solr/<collection_name>/update?commit=true"
@@ -59,7 +59,7 @@ $ curl -ikv --negotiate -u: "http://$(hostname -f):8983/solr/<collection_name>/u
 -> This is going to do a hard commit and create a new segment with all the documents in it on the local disk. 
 
 
-6) To query a collection from command line:
+#### 6) To query a collection from command line:
 -------------------------------------------
 
 $ curl -ikv --negotiate -u: "http://$(hostname -f):8886/solr/ranger_audits/select?q=*%3A*&wt=json&rows=10&indent=true"
@@ -84,19 +84,19 @@ Documentation link for the Solr Admin UI (query) page:
 https://lucene.apache.org/solr/guide/6_6/query-screen.html#query-screen
 
 
-7) To back up a SOLR collection in Solr Cloud mode:
+#### 7) To back up a SOLR collection in Solr Cloud mode:
 ---------------------------------------------------
 
 $ curl -ikv --negotiate -u : "http://$(hostname -f):8886/solr/admin/collections?action=BACKUP&name=<myBackupName>&collection=<myCollectionName>&location=</path/to/my/shared/drive>
 
 
-8) To restore a SOLR collection in Solr cloud mode:
+#### 8) To restore a SOLR collection in Solr cloud mode:
 ---------------------------------------------------
 
 $ curl -ikv --negotiate -u : "http://$(hostname -f):8886/solr/admin/collections?action=RESTORE&name=<myBackupName>&location=</path/to/my/shared/drive>&collection=<myRestoredCollectionName>
 
 
-9) To delete the old entires from the collections log:
+#### 9) To delete the old entires from the collections log:
 ------------------------------------------------------
 
 $ curl -ikv --negotiate -u: "http://$(hostname -f):8886/solr/ranger_audits/update?commit=true" -H "Content-Type: text/xml" --data-binary "<delete><query>evtTime:[* TO NOW-15DAYS]</query></delete>"
@@ -104,7 +104,7 @@ $ curl -ikv --negotiate -u: "http://$(hostname -f):8886/solr/ranger_audits/updat
 -> This is going to delete data before 15 days from the current date.
 
 
-10) To add replica for the collections:
+#### 10) To add replica for the collections:
 ---------------------------------------
 
 curl -ikv --negotiate -u : "http://$(hostname -f):8886/solr/admin/collections?action=ADDREPLICA&collection=<collection_name>&shard=shard1&node=<hostname of the server>:8886_solr"
@@ -117,19 +117,20 @@ $ curl -ikv --negotiate -u : "http://$(hostname -f):8886/solr/admin/collections?
 [Lucene Documentation](https://lucene.apache.org/solr/guide/6_6/collections-api.html)
 
 
-11) Split Shard on ranger_audits collection:
+#### 11) Split Shard on ranger_audits collection:
 --------------------------------------------
 
 $ curl "http://$(hostname -f):8886/solr/admin/collections?action=SPLITSHARD&collection=ranger_audits&shard=shard1&indent=true"
 
-o For Kerberos:
+#### For Kerberos:
+---
 
 curl -ikv --negotiate -u: "http://$(hostname -f):8886/solr/admin/collections?action=SPLITSHARD&collection=ranger_audits&shard=shard1&indent=true"
 
 *** Can use an "async" call to put the thread in the BG.
 
 
-o Backup the OLD configs for Ambari Infra Solr for ranger_audits collection:
+#### Backup the OLD configs for Ambari Infra Solr for ranger_audits collection:
 ----------------------------------------------------------------------------
 
 -> This can be done for any config set that is available in ZK. The config sets are present under `/infra-solr/configs`.
@@ -137,7 +138,7 @@ o Backup the OLD configs for Ambari Infra Solr for ranger_audits collection:
 #/usr/lib/ambari-infra-solr/server/scripts/cloud-scripts/zkcli.sh -zkhost c165-node2.local.domain:2181/infra-solr -cmd downconfig -confname ranger_audits -confdir /tmp/OLDRANGER/ 
 
 
-o Solr check index tool:
+#### Solr check index tool:
 ------------------------
 
 - This is helpful when you have to perform a index check for any corruption.
@@ -161,20 +162,20 @@ For example:
 $ /usr/jdk64/jdk1.8.0_92/bin/java -cp /opt/lucidworks-hdpsearch/solr/server/solr-webapp/webapp/WEB-INF/lib/lucene-core-5.2.1.jar -ea:org.apache.lucene... org.apache.lucene.index.CheckIndex /opt/lucidworks-hdpsearch/solr/server/solr/DOCSS_UAT2_shard2_replica1/data/ -exorcise
 
 
-o Helpful articles:
+#### Helpful articles:
 -------------------
 [Understanding Ambari Infra]
 (https://docs.hortonworks.com/HDPDocuments/Ambari-2.7.3.0/using-ambari-core-services/content/amb_understanding_ambari_infra.html)
 [Ambari HDF Upgrade](https://docs.hortonworks.com/HDPDocuments/HDF3/HDF-3.4.0/ambari-managed-hdf-upgrade-ppc/content/hdf-upgrade-ambari-infra.html)
 
 
-o Updating the security.json in Kerberized clusters for Apache Solr:
+#### Updating the security.json in Kerberized clusters for Apache Solr:
 --------------------------------------------------------------------
 
 $ /opt/lucidworks-hdpsearch/solr/server/scripts/cloud-scripts/zkcli.sh -zkhost c3218-node2.hwx.internal2:2181,c3218-node3.hwx.internal2:2181,c3218-node4.hwx.internal2:2181 -cmd put /solr/security.json '{"authentication":{"class": "org.apache.solr.security.KerberosPlugin"}}'  
 
 
-o How to setup and secure a SolrCloud cluster with Kerberos and Ranger:
+#### How to setup and secure a SolrCloud cluster with Kerberos and Ranger:
 -----------------------------------------------------------------------
 
 https://support.hortonworks.com/s/article/How-to-setup-and-secure-a-SolrCloud-cluster-with-Kerberos-and-Ranger
@@ -182,13 +183,13 @@ https://support.hortonworks.com/s/article/How-to-setup-and-secure-a-SolrCloud-cl
 https://community.cloudera.com/t5/Community-Articles/Modifying-Ranger-Audit-Solr-Config/ta-p/244899
 
 
-o Documentation for Solr Admin UI:
+#### Documentation for Solr Admin UI:
 ----------------------------------
 
 https://lucene.apache.org/solr/guide/6_6/using-the-solr-administration-user-interface.html
 
 
-o Oliver Szabo's github link with Asciinemas:
+#### Oliver Szabo's github link with Asciinemas:
 ---------------------------------------------
 
 https://github.com/apache/ambari-infra/tree/master/ambari-infra-solr-client
