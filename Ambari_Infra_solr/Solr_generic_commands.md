@@ -83,7 +83,7 @@ $ curl -ikv --negotiate -u: "http://$(hostname -f):8886/solr/ranger_audits/selec
 ```
 
 Optional:
-
+---
 Can use the query to sort using ascending (asc) or descending (desc) order.
 
 For example: To sort the output according to the "_version_" feild:
@@ -102,10 +102,10 @@ $ curl -ikv --negotiate -u: http://c2218-node2.labs.support.hortonworks.com:8886
 $ curl -ikv --negotiate -u http://$(hostname -f):8886/solr/<collection/shard name>/select?q=*:*&fq=repo:Apollo_kms&fq=result:0&wt=json&indent=true
 ```
 
-#### Documentation link for the Solr Admin UI (query) page:
+#### Documentation link for the [Solr Admin UI (query) page](https://lucene.apache.org/solr/guide/6_6/query-screen.html#query-screen)
 ------------------------------------------------------
 
-https://lucene.apache.org/solr/guide/6_6/query-screen.html#query-screen
+
 
 
 #### 7) To back up a SOLR collection in Solr Cloud mode:
@@ -208,8 +208,9 @@ $ /usr/jdk64/jdk1.8.0_92/bin/java -cp /opt/lucidworks-hdpsearch/solr/server/solr
 
 #### Helpful articles:
 -------------------
-[Understanding Ambari Infra]
-(https://docs.hortonworks.com/HDPDocuments/Ambari-2.7.3.0/using-ambari-core-services/content/amb_understanding_ambari_infra.html)
+
+[Understanding Ambari Infra](https://docs.hortonworks.com/HDPDocuments/Ambari-2.7.3.0/using-ambari-core-services/content/amb_understanding_ambari_infra.html)
+
 [Ambari HDF Upgrade](https://docs.hortonworks.com/HDPDocuments/HDF3/HDF-3.4.0/ambari-managed-hdf-upgrade-ppc/content/hdf-upgrade-ambari-infra.html)
 
 
@@ -223,18 +224,17 @@ $ /opt/lucidworks-hdpsearch/solr/server/scripts/cloud-scripts/zkcli.sh -zkhost c
 #### How to setup and secure a SolrCloud cluster with Kerberos and Ranger:
 -----------------------------------------------------------------------
 
-https://support.hortonworks.com/s/article/How-to-setup-and-secure-a-SolrCloud-cluster-with-Kerberos-and-Ranger
-
-https://community.cloudera.com/t5/Community-Articles/Modifying-Ranger-Audit-Solr-Config/ta-p/244899
+[How-to-setup-and-secure-a-SolrCloud-cluster-with-Kerberos-and-Ranger](https://support.hortonworks.com/s/article/How-to-setup-and-secure-a-SolrCloud-cluster-with-Kerberos-and-Ranger)
 
 
-#### Documentation for Solr Admin UI:
+[Modifying-Ranger-Audit-Solr-Config](https://community.cloudera.com/t5/Community-Articles/Modifying-Ranger-Audit-Solr-Config/ta-p/244899)
+
+
+#### Documentation for [Solr Admin UI](https://lucene.apache.org/solr/guide/6_6/using-the-solr-administration-user-interface.html):
 ----------------------------------
-
-https://lucene.apache.org/solr/guide/6_6/using-the-solr-administration-user-interface.html
 
 
 #### Oliver Szabo's github link with Asciinemas:
 ---------------------------------------------
 
-https://github.com/apache/ambari-infra/tree/master/ambari-infra-solr-client
+[Oliver Szabo's github link with Asciinemas](https://github.com/apache/ambari-infra/tree/master/ambari-infra-solr-client)
