@@ -44,7 +44,9 @@ extra handles which are necessary when creating a collection manually using APIs
 
 Example command:
 
-```curl -ikv --negotiate -u : "http://$(hostname -f):8983/solr/admin/collections?action=CREATE&name=<collection_name>&numShards=<number>&collection.configName=nameofconfiguration&maxShardsPerNode=<number>&replicationFactor=<number>" ```
+```
+curl -ikv --negotiate -u : "http://$(hostname -f):8983/solr/admin/collections?action=CREATE&name=<collection_name>&numShards=<number>&collection.configName=nameofconfiguration&maxShardsPerNode=<number>&replicationFactor=<number>" 
+```
 
 #### 3) DELETE A COLLECTION & CONFIG set:
 ------------------------------------
