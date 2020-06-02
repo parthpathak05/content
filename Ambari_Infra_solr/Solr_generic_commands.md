@@ -61,7 +61,7 @@ $ curl -ikv --negotiate -u : "http://$(hostname -f):8983/solr/admin/collections?
 $ curl -ikv --negotiate -u : "http://$(hostname -f):8983/solr/admin/configs?action=DELETE&name=ranger_audits" 
 ```
 
-### 3a) CREATE A CONFIGSET MANUALLY AND UPLOADING IT TO SOLR:
+#### 3a) CREATE A CONFIGSET MANUALLY AND UPLOADING IT TO SOLR:
 ---
 
  - For ranger_audits (in CDH):
@@ -77,6 +77,8 @@ $ curl -X POST --header "Content-Type:application/octet-stream" --data-binary @s
 ```
 $ curl -X POST --header "Content-Type:application/octet-stream" --data-binary @solr_audit_conf.zip "http://$(hostname -f):8983/solr/admin/configs?action=UPLOAD&name=ranger_audits"
 ```
+
+The path to the configuration directory changes with HDP & CDP, but the idea remains the same. To upload a config, ZIP and use the configs API to upload the Zipped file.
 
 #### 4) CHECK SOLR cloud CLUSTER STATUS:
 -----------------------------------
