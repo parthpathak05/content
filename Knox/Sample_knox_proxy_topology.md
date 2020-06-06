@@ -13,7 +13,7 @@ Contents (HDP 2.6.5.0 using Active Directory)
 https://github.com/HortonworksUniversity/Security_Labs/blob/master/HDP-2.6-AD.md#contents--hdp-2650-using-active-directory
 ~~~
 
-NOTE: 
+* NOTE: 
 
 1. If Ranger plugin for KNOX is enabled, make sure that it is present in the list of users in the Policy for Knox. Otherwise it will throw HTTP 403 autorization error in the browser.
 
@@ -25,7 +25,7 @@ USE: https://regex101.com/ for evaluation of regex for URLs.
 4. KNOXSSO is used for setting up single sign on so that, you will not need to sign on by entering the credentials everytime for every service in the cluster.
 
 
-#### -default.xml
+#### * default.xml
 ---
 
 ```
