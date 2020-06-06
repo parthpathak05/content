@@ -55,7 +55,7 @@ Where:
 `path_to_certificate_file`: Specifies the exported certificate file, often given an extension of .cert.
 
 
-o Good links to be referred:
+#### * Good links to be referred:
 -----------------------------
 
 https://www.sslshopper.com/article-most-common-java-keytool-keystore-commands.html
