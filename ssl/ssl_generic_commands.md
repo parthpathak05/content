@@ -46,16 +46,16 @@ Ex. keytool -genkey -keyalg RSA -alias rangerHdfsAgent -keystore ranger-plugin-k
 Ex: keytool -export -keystore /etc/ranger/admin/conf/ranger-admin-keystore.jks -alias rangeradmin -file ranger-admin-trust.cer
 ```
 
-where:
+Where:
 
-alias_name: Specifies the same alias that was used to generate the certificate.
+`alias_name`: Specifies the same alias that was used to generate the certificate.
 
-path_to_keystore_file: Specifies the same KeyStore path that was used to generate the certificate.
+`path_to_keystore_file`: Specifies the same KeyStore path that was used to generate the certificate.
 
-path_to_certificate_file: Specifies the exported certificate file, often given an extension of .cert.
+`path_to_certificate_file`: Specifies the exported certificate file, often given an extension of .cert.
 
------------------------------
-o A good link to be referred:
+
+o Good links to be referred:
 -----------------------------
 
 https://www.sslshopper.com/article-most-common-java-keytool-keystore-commands.html
