@@ -25,7 +25,7 @@ USE: https://regex101.com/ for evaluation of regex for URLs.
 4. KNOXSSO is used for setting up single sign on so that, you will not need to sign on by entering the credentials everytime for every service in the cluster.
 
 
-o default.xml
+#### * default.xml
 -------------
 
 ```
