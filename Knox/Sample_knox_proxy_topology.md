@@ -28,6 +28,7 @@ USE: https://regex101.com/ for evaluation of regex for URLs.
 o default.xml
 -------------
 
+```
 <topology>
 	<gateway>
 		<provider>
@@ -181,3 +182,4 @@ o default.xml
 		<role>SERVICE-TEST</role>
 	</service>
 </topology>
+```
