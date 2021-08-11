@@ -164,7 +164,7 @@ Ex:
 
 - As a note please refer the man page for the above commands: 
 
-https://www.openssl.org/docs/manmaster/man1/openssl-pkcs12.html
+[Openssl Man Page](https://www.openssl.org/docs/manmaster/man1/openssl-pkcs12.html)
 
 
 #### 11. Deleting the alias in the JKS keystore:
@@ -239,22 +239,21 @@ Ex:
 ---
 
 ```
-#openssl x509 -inform der -in certificate.cer -out certificate.pem
+#x509 -inform der -in certificate.cer -out certificate.pem
 ```
 
 
-#### * Good links that can be referred for better understanding of SSL:
------------------------------------------------------------------------
 
-https://www.sslshopper.com/article-most-common-java-keytool-keystore-commands.html
+---
+#### *** Good links that can be referred for better understanding of SSL: ***
+---
 
-https://www.ssl.com/article/ssl-tls-handshake-overview/
+[The Most Common Java Keytool Keystore Commands](https://www.sslshopper.com/article-most-common-java-keytool-keystore-commands.html)
 
-https://blog.vrypan.net/2013/08/28/public-key-cryptography-for-non-geeks/
+[The SSL/TLS Handshake: an Overview](https://www.ssl.com/article/ssl-tls-handshake-overview/)
 
-```
-Export Certificates and Private Key from a PKCS#12 File with OpenSSL: 
-https://www.ssl.com/how-to/export-certificates-private-key-from-pkcs12-file-with-openssl/
-```
+[What is Public/PrivateKeyCryptogrphy? And use of it in Digital Signatures](https://blog.vrypan.net/2013/08/28/public-key-cryptography-for-non-geeks/)
 
-https://www.acunetix.com/blog/articles/tls-security-what-is-tls-ssl-part-1/
+[Export Certificates and Private Key from a PKCS#12 File with OpenSSL](https://www.ssl.com/how-to/export-certificates-private-key-from-pkcs12-file-with-openssl/)
+
+[Detail series of 5 parts on SSL/TLS](https://www.acunetix.com/blog/articles/tls-security-what-is-tls-ssl-part-1/)
