@@ -153,13 +153,13 @@ Ex:
 - For reading the key created using RSA algorithm:
 
 ```
-# openssl rsa -in <name>.key -text
+#openssl rsa -in <name>.key -text
 ```
 
 - For reading the certificate created using x509 standard:
 
 ```
-# openssl x509 -in <name>.crt -text
+#openssl x509 -in <name>.crt -text
 ```
 
 - As a note please refer the man page for the above commands: 
@@ -174,13 +174,13 @@ https://www.openssl.org/docs/manmaster/man1/openssl-pkcs12.html
 - You need to know the password for the keystore and if trying to remove the `PrivateKeyEntry` the key password.
  
 ```
-# keytool -delete -alias <alias_name> -keystore <keystorename>
+#keytool -delete -alias <alias_name> -keystore <keystorename>
 ```
 
 Ex:
 
 ```
-# keytool -delete -alias gateway-identity -keystore gateway.jks
+#keytool -delete -alias gateway-identity -keystore gateway.jks
 ```
 
 #### 12. Changing the alias in the SSL keystores JKS:
@@ -190,13 +190,13 @@ Ex:
 - It can also be executed without the `-storepass` argument. In which case you will hae to provide the password on the prompt when asked.
 
 ```
-# keytool -changealias -alias "alias_name" -destalias "new_alias"  -keystore /path/to/keystore -storepass storepass
+#keytool -changealias -alias "alias_name" -destalias "new_alias"  -keystore /path/to/keystore -storepass storepass
 ```
 
 Ex:
 
 ```
-# keytool -changealias -alias "mykey" -destalias "gateway-identity" -keystore /etc/ambari-server/conf/ambari-server-truststore.jks
+#keytool -changealias -alias "mykey" -destalias "gateway-identity" -keystore /etc/ambari-server/conf/ambari-server-truststore.jks
 ```
 
 - Optionally you can also use the above example to change the alias of a `PrivateKeyEntry` using argument `-keypass key-password`.
@@ -209,7 +209,7 @@ Ex:
 - Can be used to check if the certificate chain is complete in a give file.
 
 ```
-# echo "" | $JAVA_HOME/bin/keytool -list -keystore test.jks -v | egrep "Owner:|Issuer:"
+#echo "" | $JAVA_HOME/bin/keytool -list -keystore test.jks -v | egrep "Owner:|Issuer:"
 ```
 
 #### 14. To print the contents of the certificate:
@@ -218,8 +218,30 @@ Ex:
 - We can use the `keytool` command to read the certificate details from a PEM/DER encoded files.
 
 ```
-# keytool -printcert -file <file.crt>
+#keytool -printcert -file <file.crt>
 ```
+
+#### 15. To check if the `.crt` file corresponds to the `.key` file use below:
+---
+
+```
+#openssl x509 –noout –modulus –in <file>.crt | openssl md5
+```
+
+```
+#openssl rsa –noout –modulus –in <file>.key | openssl md5
+```
+
+- The MD5 should be same for both the key and the CRT file which verifies the keypair. 
+
+
+#### 16. Converting the DER encoded certs to PEM encoded certs:
+---
+
+```
+#openssl x509 -inform der -in certificate.cer -out certificate.pem
+```
+
 
 #### * Good links that can be referred for better understanding of SSL:
 -----------------------------------------------------------------------
