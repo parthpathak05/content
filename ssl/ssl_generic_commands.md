@@ -164,8 +164,6 @@ Ex:
 
 - As a note please refer the man page for the above commands: 
 
-[Openssl Man Page](https://www.openssl.org/docs/manmaster/man1/openssl-pkcs12.html)
-
 
 #### 11. Deleting the alias in the JKS keystore:
 ---
@@ -255,3 +253,7 @@ Ex:
 - [What is Public/PrivateKeyCryptogrphy? And use of it in Digital Signatures](https://blog.vrypan.net/2013/08/28/public-key-cryptography-for-non-geeks/)
 
 - [Export Certificates and Private Key from a PKCS#12 File with OpenSSL](https://www.ssl.com/how-to/export-certificates-private-key-from-pkcs12-file-with-openssl/)
+
+- ["keytool" command manual Page](https://docs.oracle.com/en/java/javase/13/docs/specs/man/keytool.html)
+
+- ["openssl" manual Page](https://www.openssl.org/docs/manmaster/man1/openssl-pkcs12.html)
