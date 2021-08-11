@@ -248,12 +248,10 @@ Ex:
 #### *** Good links that can be referred for better understanding of SSL: ***
 ---
 
-[The Most Common Java Keytool Keystore Commands](https://www.sslshopper.com/article-most-common-java-keytool-keystore-commands.html)
+- [Detail series of 5 parts on SSL/TLS](https://www.acunetix.com/blog/articles/tls-security-what-is-tls-ssl-part-1/)
 
-[The SSL/TLS Handshake: an Overview](https://www.ssl.com/article/ssl-tls-handshake-overview/)
+- [The SSL/TLS Handshake: an Overview](https://www.ssl.com/article/ssl-tls-handshake-overview/)
 
-[What is Public/PrivateKeyCryptogrphy? And use of it in Digital Signatures](https://blog.vrypan.net/2013/08/28/public-key-cryptography-for-non-geeks/)
+- [What is Public/PrivateKeyCryptogrphy? And use of it in Digital Signatures](https://blog.vrypan.net/2013/08/28/public-key-cryptography-for-non-geeks/)
 
-[Export Certificates and Private Key from a PKCS#12 File with OpenSSL](https://www.ssl.com/how-to/export-certificates-private-key-from-pkcs12-file-with-openssl/)
-
-[Detail series of 5 parts on SSL/TLS](https://www.acunetix.com/blog/articles/tls-security-what-is-tls-ssl-part-1/)
+- [Export Certificates and Private Key from a PKCS#12 File with OpenSSL](https://www.ssl.com/how-to/export-certificates-private-key-from-pkcs12-file-with-openssl/)
