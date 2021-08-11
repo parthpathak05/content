@@ -237,7 +237,7 @@ Ex:
 ---
 
 ```
-#x509 -inform der -in certificate.cer -out certificate.pem
+#openssl x509 -inform der -in certificate.cer -out certificate.pem
 ```
 
 
