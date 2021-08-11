@@ -66,9 +66,9 @@ Ex:
 
 Where:
 
-`alias_name`: Specifies the same alias that was used to generate the certificate.
-`path_to_keystore_file`: Specifies the same KeyStore path that was used to generate the certificate.
-`path_to_certificate_file`: Specifies the exported certificate file, often given an extension of .cert.
+- `alias_name`: Specifies the same alias that was used to generate the certificate.
+- `path_to_keystore_file`: Specifies the same KeyStore path that was used to generate the certificate.
+- `path_to_certificate_file`: Specifies the exported certificate file, often given an extension of .cert.
 
 #### 6. To change the password of the private key entry in the JKS keystore: 
 ----------------------------------------------------------------------------
@@ -87,13 +87,13 @@ OR
 
 - The following are the available options for the `-keypasswd` command:
 
-`{-alias alias}`: Alias name of the entry to process.
-`[-keypass old_keypass]`: Key password.
-`[-new new_keypass]`: New password.
-`{-keystore keystore}`: Keystore name.
-`{-storepass arg}`: Keystore password.
-`{-storetype type}`: Keystore type.
-`{-v}`: Verbose output.
+- `{-alias alias}`: Alias name of the entry to process.
+- `[-keypass old_keypass]`: Key password.
+- `[-new new_keypass]`: New password.
+- `{-keystore keystore}`: Keystore name.
+- `{-storepass arg}`: Keystore password.
+- `{-storetype type}`: Keystore type.
+- `{-v}`: Verbose output.
 
 #### 7. To change the JKS keystore file password:
 ---------------------------------------------
@@ -106,13 +106,13 @@ Ex:
 #keytool -storepasswd -keystore keystore.jks
 ```
 
-`[-new arg]`: New password
-`{-keystore keystore}`: Keystore name
-`{-cacerts}`: Access the cacerts keystore
-`[-storepass arg]`: Keystore password
-`{-storetype type}`: Keystore type
-`{-providername name}`: Provider name
-`{-v}`: Verbose output
+-`[-new arg]`: New password
+-`{-keystore keystore}`: Keystore name
+-`[-storepass arg]`: Keystore password
+-`{-storetype type}`: Keystore type
+-`{-providername name}`: Provider name
+-`{-keystore keystore}`: Keystore name
+- `{-v}`: Verbose output
 
 
 #### 8. Extracting the Private key and the certs from the PFX files: (Usually required when SSL certificate renewal cases come in!)
